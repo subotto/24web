@@ -1,0 +1,46 @@
+<div class="header">
+  <div class="header-inner">
+    <div class="container">
+      <span class="header-span">
+        <span class="white left-white"></span>
+        <span class="lightblue lightblue-left"></span>
+        <div class="header-text">
+          <span class="white header-background">
+            <a href="index.php"><img class="logo" src="files/images/logo.svg" /></a>
+            <span class="info">
+              Ventiquattr'ore di Biliardino <br/>
+              Quinta edizione <br/>
+              <i>28-29 gennaio 2014</i>
+            </span>
+          </span>
+          <span class="lightblue lightblue-right"></span>
+          <span class="scoreboard-background">
+            <table class="scoreboard">
+              <tr class="bigger">
+                <td class="score score-mat" id="score-0">{{score.blue.score}}</td>
+                <td class="scoreboard-separator">:</td>
+                <td class="score score-fis" id="score-1">{{score.red.score}}</td>
+              </tr>
+              <tr>
+                <td class="score score-mat" id="team-0">{{score.blue.team}}</td>
+                <td class="scoreboard-separator"></td>
+                <td class="score score-fis" id="team-1">{{score.red.team}}</td>
+              </tr>
+            </table>
+          </span>
+        </div>
+        <nav class="links links-upper white">
+          <li><a ui-sref="overview">Home</a></li>
+          <li><a ui-sref="score">Edizione corrente</a></li>
+          <li><a ui-sref="history">Edizioni passate</a></li>
+          <li><a ui-sref="trailers">Trailer e sigla</a></li>
+          <li><a ui-sref="rules">La manifestazione</a></li>
+          <li></li>
+        </nav>
+        <nav class="links links-lower">
+          <li ng-repeat="s in subpages()"><a ui-sref='{{s[1]}}'>{{s[0]}}</a></li>
+        </nav>
+        </span>
+    </div>
+  </div>
+</div>

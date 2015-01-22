@@ -1,0 +1,848 @@
+/**
+ *  Cose utili
+ */
+.hidden {
+    display: none;
+}
+
+.pull-right {
+    float: right;
+    clear: right;
+}
+
+.pull-left {
+    float: left;
+    clear: left;
+}
+
+.vcenter, .vcenter td, .vcenter th {
+    vertical-align: middle;
+}
+
+a {
+    color: rgb(36, 108, 183);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+span {
+    display: inline-block;
+}
+
+div, body {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-image: url(images/fresh_snow.png);
+    font-family: sans-serif;
+    font-size: 13px;
+    overflow-y: scroll;
+}
+
+.center {
+    text-align: center;
+}
+
+/**
+ * Tabelle
+ */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+table table td, table table th {
+    border: none;
+}
+
+table td, table th {
+    border: 1px solid rgb(221, 221, 221);
+    padding: 3px 7px 2px;
+    vertical-align: top;
+    text-align: left;
+}
+
+table thead+tbody tr:nth-child(2n+1), table tbody:first-child tr:nth-child(2n) {
+    background-color: rgb(249, 249, 249)
+}
+
+#tabella thead+tbody tr:nth-child(2n+1) {
+    background-color: rgb(249, 249, 249)
+}
+
+#tabella_semplice #tabella td, #tabella_semplice #tabella th{
+    border: 1px solid rgb(221, 221, 221);
+    padding: 3px 7px 2px;
+}
+
+#tabella_semplice tr, #tabella table tr, #tabella_top table tr {
+    background-color: transparent;
+}
+
+#tabella_semplice td, #tabella_semplice th {
+    padding: 0;
+    border: none;
+}
+
+table th {
+    font-weight: bold;
+}
+
+table thead {
+    font-weight: bold;
+}
+
+/**
+ *  Header
+ */
+
+.header {
+    background-image: url(images/fresh_snow_dark.png);
+    padding-bottom: 10px;
+    margin-bottom: 80px;
+}
+
+.header-span {
+    width: 1000px;
+    position: relative;
+}
+
+.header-background {
+    height: 80px;
+    margin-top: -20px;
+    vertical-align: middle;
+}
+
+.header-inner {
+    background: linear-gradient(to bottom, rgba(25, 133, 197, 0) 0px, rgba(25, 133, 197, 0.55) 100%) repeat scroll 0% 0% transparent;
+    background: -webkit-linear-gradient(top, rgba(25, 133, 197, 0), rgba(25, 133, 197, 0.55)) repeat scroll 0% 0% transparent;
+    background: -moz-linear-gradient(top, rgba(25, 133, 197, 0), rgba(25, 133, 197, 0.55)) repeat scroll 0% 0% transparent;
+    width: 100%;
+}
+
+.container {
+    width: 1000px;
+    margin: auto;
+}
+
+.white {
+    background-color: white;
+}
+
+.lightblue-left {
+    width: 20px;
+    height: 120px;
+    float: left;
+    margin-top: 30px;
+    background: none repeat scroll 0% 0% rgb(229, 241, 247);
+    transform: matrix(2,-1.5,-0.5,1,7,16);
+    -webkit-transform: matrix(2,-1.5,-0.5,1,7,16);
+    -moz-transform: matrix(2,-1.5,-0.5,1,7,16);
+}
+
+.lightblue-right {
+    width: 20px;
+    height: 70px;
+    background: none repeat scroll 0% 0% rgb(205, 228, 241);
+    transform: matrix(1,0.7,0,1.2,-4,30.5);
+    -webkit-transform: matrix(1,0.7,0,1.2,-4,30.5);
+    -moz-transform: matrix(1,0.7,0,1.2,-4,30.5);
+}
+
+.header-text {
+    margin-left: 20px;
+    height: 80px;
+    margin-top: 30px;
+    transform: matrix(1,0,-0.5,1,35,-15);
+    -webkit-transform: matrix(1,0,-0.5,1,35,-15);
+    -moz-transform: matrix(1,0,-0.5,1,35,-15);
+}
+
+.links li {
+    display: inline-block;
+    margin-right: 20px;
+    height: 100%;
+    vertical-align: middle;
+    padding-top: 10px;
+}
+
+
+.links {
+    height: 40px;
+    vertical-align: middle;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.links-upper {
+    background-color: white;
+    margin-left: 20px;
+    transform: matrix(1,0,-0.5,1,-2.5,0);
+    -webkit-transform: matrix(1,0,-0.5,1,-2.5,0);
+    -moz-transform: matrix(1,0,-0.5,1,-2.5,0);
+}
+
+.links-upper li {
+    transform: matrix(1,0,0.5,1,28,0);
+    -webkit-transform: matrix(1,0,0.5,1,28,0);
+    -moz-transform: matrix(1,0,0.5,1,28,0);
+}
+
+.links-upper li:last-child {
+    float: right;
+    padding-right: 20px;
+}
+
+.links-upper li:last-child a {
+    color: darkred;
+    font-variant: small-caps;
+}
+
+.links-lower {
+    margin-left: 20px;
+}
+
+.links-lower a {
+    color: white;
+    text-decoration: none;
+}
+
+.links-lower a:hover {
+    text-decoration: underline;
+}
+
+.logo {
+    color: rgb(36, 108, 183);
+    margin-right: 300px;
+    padding-top: 10px;
+}
+
+.info {
+    text-align: right;
+    font-size: 13px;
+    margin-right: 50px;
+}
+
+.logo, .info {
+    transform: matrix(1,0,0.5,1,28,0);
+    -webkit-transform: matrix(1,0,0.5,1,28,0);
+    -moz-transform: matrix(1,0,0.5,1,28,0);
+}
+
+.big {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.bigger {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.scoreboard-background {
+    margin-right: 40px;
+	background: linear-gradient(to right, rgb(188, 216, 230) 0px, rgb(229, 241, 247) 100%) repeat scroll 0% 0% transparent;
+    background: -webkit-linear-gradient(left, rgb(188, 216, 230), rgb(229, 241, 247)) repeat scroll 0% 0% transparent;
+    background: -moz-linear-gradient(left, rgb(188, 216, 230), rgb(229, 241, 247)) repeat scroll 0% 0% transparent;
+    width: 260px;
+    height: 66px;
+    padding-top: 5px;
+    position: absolute;
+    top: 0;
+    text-align: center;
+    transform: matrix(1,0,0,1,-4,30.5);
+    -webkit-transform: matrix(1,0,0,1,-4,30.5);
+    -moz-transform: matrix(1,0,0,1,-4,30.5);
+}
+
+.scoreboard {
+	margin-top: 0px;
+    color: rgb(36, 108, 183);
+    text-align: center;
+    transform: matrix(1,0,0.5,1,0,0);
+    -webkit-transform: matrix(1,0,0.5,1,0,0);
+    -moz-transform: matrix(1,0,0.5,1,0,0);
+}
+
+.scoreboard tr {
+    background-color: transparent !important;
+}
+
+table.scoreboard td {
+    border: none;
+}
+
+.scoreboard .big {
+    vertical-align: top;
+}
+
+.score {
+	width: 100px;
+	text-align: center;
+}
+
+
+.scoreboard-separator {
+	width: 5px;
+}
+
+.left-white {
+    width: 2000px;
+    height: 120px;
+    position: absolute;
+    top: 60px;
+    right: 1000px;
+    transform: matrix(1,0,-0.5,1,-1.5,1);
+    -webkit-transform: matrix(1,0,-0.5,1,-1.5,1);
+    -moz-transform: matrix(1,0,-0.5,1,-1.5,1);
+}
+
+/**
+ *  Tempo rimanente
+ */
+.subheader {
+    width: 2000px;
+    right: 700px;
+    bottom: -42px;
+    position: absolute;
+    text-align: right;
+    background-color: white;
+    border: 1px #eee solid;
+    padding: 8px;
+    color: rgb(36, 108, 183);
+    transform: matrix(1,0,-0.5,1,0,0);
+    -webkit-transform: matrix(1,0,-0.5,1,0,0);
+    -moz-transform: matrix(1,0,-0.5,1,0,0);
+    box-shadow: -10px 10px 5px rgba(128, 128, 128, 0.4);
+    -moz-box-shadow: -10px 10px 5px rgba(128, 128, 128, 0.4);
+    -webkit-box-shadow: -10px 10px 5px rgba(128, 128, 128, 0.4);
+    font-size: 15px;
+    font-weight: bold;
+    height: 24px;
+}
+
+.subheader div {
+    transform: matrix(1,0,0.5,1,-20,0);
+    -webkit-transform: matrix(1,0,0.5,1,-20,0);
+    -moz-transform: matrix(1,0,0.5,1,-20,0);
+}
+
+.subheader .big {
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+/**
+ *  "Scatole"
+ */
+
+.box {
+    background-color: white;
+    padding: 3px;
+    box-shadow: 0px 0px 5px rgba(128, 128, 128, 0.5);
+    -moz-box-shadow: 0px 0px 5px rgba(128, 128, 128, 0.5);
+    -webkit-box-shadow: 0px 0px 5px rgba(128, 128, 128, 0.5);
+    margin-bottom: 45px;
+    position: relative;
+    font-size: 13px;
+}
+
+.box .box-content {
+    padding: 20px;
+    padding-top: 40px;
+    /*text-align: justify;*/
+}
+
+.box-orange .box-header-name, .box-orange .box-header-end {
+    background-color: rgb(255, 127, 42);
+}
+
+.box-orange .box-header-middle {
+    background-color: rgb(255, 153, 85);
+}
+
+.box-blue .box-header-name, .box-blue .box-header-end {
+    background-color: rgb(85, 153, 255);
+}
+
+.box-blue .box-header-middle {
+    background-color: rgb(128, 179, 255);
+}
+
+.box-purple .box-header-name, .box-purple .box-header-end {
+    background-color: #b42a99;
+}
+
+.box-purple .box-header-middle {
+    background-color: #d256bf;
+}
+
+
+
+.box .box-header {
+    font-size: 18px;
+    margin-bottom: -20px;
+    font-weight: bold;
+    color: white;
+    font-family: sans-serif;
+    font-variant: small-caps;
+    position: relative;
+}
+
+.box .box-header-name span {
+    transform: matrix(1,0,0.7,1,0,0);
+    -webkit-transform: matrix(1,0,0.7,1,0,0);
+    -moz-transform: matrix(1,0,0.7,1,0,0);
+}
+
+.box .box-header-name {
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 25px;
+    position: absolute;
+    top: 0;
+    left: 110px;
+    transform: matrix(1,0,-0.7,1,0,-27);
+    -webkit-transform: matrix(1,0,-0.7,1,0,-27);
+    -moz-transform: matrix(1,0,-0.7,1,0,-27);
+    box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.7);
+    -webkit-box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.box .box-header-middle {
+    width: 10px;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    left: 100px;
+    transform: matrix(1,-0.6,-0.7,1,0,-24);
+    -webkit-transform: matrix(1,-0.6,-0.7,1,0,-24);
+    -moz-transform: matrix(1,-0.6,-0.7,1,0,-24);
+    z-index: 1000;
+}
+
+.box .box-header-end {
+    width: 100px;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: matrix(1,0,-0.7,1,0,-21);
+    -webkit-transform: matrix(1,0,-0.7,1,0,-21);
+    -moz-transform: matrix(1,0,-0.7,1,0,-21);
+    z-index: 1000;
+}
+
+.page-title {
+    background-color: white;
+    padding: 3px;
+    box-shadow: 0px 0px 5px rgba(128, 128, 128, 0.5);
+    -moz-box-shadow: 0px 0px 5px rgba(128, 128, 128, 0.5);
+    -webkit-box-shadow: 0px 0px 5px rgba(128, 128, 128, 0.5);
+    margin-bottom: 50px;
+	padding: 20px 20px 20px 20px;
+	color: rgb(36, 108, 183);
+	font-size: 2.1em;
+	font-weight: bold;
+}
+
+.object-with-shadow {
+    box-shadow: 0px 0px 5px rgba(128, 128, 128, 0.5);
+    -moz-box-shadow: 0px 0px 5px rgba(128, 128, 128, 0.5);
+    -webkit-box-shadow: 0px 0px 5px rgba(128, 128, 128, 0.5);
+}
+
+/* Twitter */
+iframe.twitter-timeline {
+    width: 440px !important;
+}
+
+/* Streaming */
+#low_quality, #hi_quality {
+    margin-top: 20px;
+}
+
+/* Grafici */
+.graph, .graph_score {
+    text-align: center;
+}
+
+/* Live score */
+
+#time_box {
+    text-align: right;
+    font-size: 40px;
+    display: none;
+}
+
+
+/* Interfaccia nuova */
+
+#graphic_interface {
+    position: relative;
+    height: 500px;
+}
+
+#blue_team, #red_team {
+    position: absolute;
+    width: 964px;
+    font-size: 40px;
+    font-variant: small-caps;
+    text-align: center;
+}
+
+.player {
+    position: absolute;
+    width: 240px;
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    background-color: white;
+    z-index: 1000;
+}
+
+.stats {
+    display: inline-block;
+    position: absolute;
+    text-align: left;
+    width: 220px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: white;
+    z-index: 500;
+}
+
+#red_team, #red_attacker, #red_defender, #red_score {
+    color: #c00;
+}
+
+#blue_team, #blue_attacker, #blue_defender, #blue_score {
+    color: #00c;
+}
+
+#blue_attacker_stats, #red_defender_stats {
+    left: -11px;
+}
+
+#red_attacker_stats, #blue_defender_stats {
+    right: -11px;
+}
+
+#blue_defender_stats {
+    border-radius: 0 15px 15px 15px;
+}
+
+#blue_attacker_stats {
+    border-radius: 15px 0 15px 15px;
+}
+
+#red_defender_stats {
+    border-radius: 15px 15px 0 15px;
+}
+
+#red_attacker_stats {
+    border-radius: 15px 15px 15px 0;
+}
+
+
+#blue_attacker, #red_defender {
+    border-left: none;
+    border-radius: 0 15px 15px 0;
+}
+
+#blue_defender, #red_attacker {
+    border-right: none;
+    border-radius: 15px 0 0 15px;
+}
+
+#blue_attacker, #blue_defender, #blue_attacker_stats, #blue_defender_stats {
+    top: 50px;
+}
+
+#red_attacker, #red_defender, #red_attacker_stats, #red_defender_stats {
+    bottom: 90px;
+}
+
+#blue_team {
+    top: 0px;
+}
+
+#red_team {
+    top: 415px;
+}
+
+#blue_attacker, #red_defender {
+    left: 220px;
+}
+
+#blue_defender, #red_attacker {
+    right: 220px;
+}
+
+
+#field_svg {
+    position: absolute;
+    left: 230px;
+    right: 230px;
+    top: 80px;
+}
+
+#dfse {
+    width: 494px;
+    height: 295px;
+}
+
+#red_score, #blue_score {
+    position: absolute;
+    top: 190px;
+    font-size: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 15px;
+    width: 230px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+#red_score {
+    left: -10px;
+}
+
+#blue_score {
+    right: -10px;
+}
+
+/* Interfaccia vecchia */
+
+#classic_interface {
+    position: relative;
+    height: 500px;
+}
+
+#team0, #team1, #player00, #player00_stats, #player01, #player01_stats,
+#player10, #player10_stats, #player11, #player11_stats, #score0, #score1 {
+    position: absolute;
+    width: 280px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#team0, #team1, #score0, #score1 {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#player00, #player01, #player10, #player11 {
+    text-align: center;
+    font-size: 23px;
+    height: 35px;
+    border-top: 2px solid black;
+    padding-top: 5px;
+}
+
+#player00_stats, #player01_stats, #player10_stats, #player11_stats {
+    height: 120px;
+}
+
+#player00, #player01, #player00_stats, #player01_stats {
+    border-left: 2px solid black;
+    border-right: 1px solid black;
+}
+
+#player10, #player11, #player10_stats, #player11_stats {
+    border-right: 2px solid black;
+    border-left: 1px solid black;
+}
+
+#team0, #team1 {
+    top: 20px;
+    height: 60px;
+}
+
+#player00 {
+    border-radius: 10px 0 0 0;
+}
+
+#player10 {
+    border-radius: 0 10px 0 0;
+}
+
+#player11_stats {
+    border-radius: 0 0 10px 0;
+}
+
+#player01_stats {
+    border-radius: 0 0 0 10px;
+}
+
+#player00, #player10 {
+    top: 140px;
+}
+
+#player00_stats, #player10_stats {
+    top: 180px;
+}
+
+#player01, #player11 {
+    top: 300px;
+}
+
+#player01_stats, #player11_stats {
+    top: 340px;
+    border-bottom: 2px solid black;
+}
+
+#score0, #score1 {
+    top: 60px;
+    height: 60px;
+    padding-top: 20px;
+}
+
+#player00, #player01, #player00_stats, #player01_stats, #team0, #score0 {
+    right: 477px;
+}
+
+#player10, #player11, #player10_stats, #player11_stats, #team1, #score1 {
+    left: 477px;
+}
+
+/* Tabelle statistiche */
+
+.player_stats tr, .player_stats td {
+    border: none;
+    background: transparent !important;
+}
+
+.player_stats td+td {
+    text-align: left;
+    width: 70px;
+}
+
+#graphic_interface .player_stats td:first-child {
+    text-align: right;
+}
+
+.all_matches td:first-child {
+    font-style: italic;
+}
+
+#classic_interface .player_stats {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 240px;
+}
+
+#classic_interface .player_stats td+td {
+    text-align: right;
+}
+
+/* Switch */
+
+.toggle {
+    text-align: right;
+    display: block;
+    height: 36px;
+    position: absolute;
+    top: -38px;
+    right: -1px;
+}
+
+.toggle a {
+    cursor: pointer;
+    text-decoration: none;
+    padding: 10px;
+    height: 15px;
+    font-size: 13px;
+    background-color: white;
+    display: inline-block;
+    border-radius: 5px 5px 0 0;
+    position: relative;
+    border: 1px solid #ddd;
+}
+
+
+.toggle a.active {
+    color: black;
+    cursor: default;
+    margin: 1px 0 0 0;
+    border: 1px solid #ccc;
+    border-bottom: 1px solid white;
+}
+
+#full_graph img, #recent_graph img {
+    width: 440px;
+}
+
+/* Tabella statistiche */
+#statistics table td {
+    vertical-align: middle;
+}
+
+#statistics table td+td {
+    width: 40%;
+    text-align: center;
+}
+
+#statistics table table tr {
+    background: transparent;
+}
+
+/* Legenda grafici */
+.green-dashed {
+    width: 30px;
+    border-bottom: 2px dashed #329932;
+    display: inline-block;
+}
+
+.green-full {
+    width: 30px;
+    border-bottom: 2px solid #329932;
+    display: inline-block;
+}
+
+.blue-dashed {
+    width: 30px;
+    border-bottom: 2px dashed #2222ff;
+    display: inline-block;
+}
+
+.blue-full {
+    width: 30px;
+    border-bottom: 2px solid #2222ff;
+    display: inline-block;
+}
+
+#legend span {
+    margin-bottom: 1px;
+    height: 0;
+}
+
+#legend td {
+    vertical-align: middle;
+    height: 10px;
+}
+
+#legend td:first-child{
+    width: 35px;
+    text-align: center;
+}
+
+#countdown24h {
+    width: 100%;
+    text-align: center;
+    font-size: 200px;
+}
+
