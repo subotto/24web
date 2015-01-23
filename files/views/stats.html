@@ -1,0 +1,256 @@
+<div class="container" >
+<box color="blue" title="Statistiche generali" ng-if="$stateParams.year == 'all'">
+ <table>
+  <colgroup>
+   <col width="120">
+   <col width="380">
+   <col width="380">
+  </colgroup>
+  <thead>
+   <tr>
+    <th></th>
+    <th>{{team0.name}}</th>
+    <th>{{team1.name}}</th>
+   </tr>
+  </thead>
+  <tbody>
+   <tr>
+    <td >Gol totali</td>
+    <td>&nbsp;{{team0.goals}}</td>
+    <td>&nbsp;{{team1.goals}}</td>
+   </tr>
+   <tr>
+    <td>Partecipanti</td>
+    <td>&nbsp;{{team0.players}}</td>
+    <td>&nbsp;{{team1.players}}</td>
+   </tr>
+   <tr>
+    <td>Capitani e vicecapitani</td>
+    <td>
+     <table>
+      <tr ng-repeat="part in team0.participations">
+       <td><a ui-sref="player({id: part.captain.id, year: part.year})">{{part.captain.name}}</a>, <a ui-sref="player({id: part.deputy.id, year: part.year})">{{part.deputy.name}}</a></td>
+       <td>(<a ui-sref="stats({year: part.year})">{{part.year}}</a>)</td>
+      </tr>
+     </table>
+    </td>
+    <td>
+     <table>
+      <tr ng-repeat="part in team1.participations">
+       <td><a ui-sref="player({id: part.captain.id, year: part.year})">{{part.captain.name}}</a>, <a ui-sref="player({id: part.deputy.id, year: part.year})">{{part.deputy.name}}</a></td>
+       <td>(<a ui-sref="stats({year: part.year})">{{part.year}}</a>)</td>
+      </tr>
+     </table>
+    </td>
+   </tr>
+  </tbody>
+ </table>
+
+ <br />
+
+ <div class="graph_score">
+  <img src="graph_global.php?type=goals" />
+  <img src="graph_global.php?type=participants" />
+ </div>	
+</box>
+
+<box color="blue" title="Statistiche 24 ore: {{$stateParams.year}}" ng-if="$stateParams.year != 'all'">
+ <p>
+  <table>
+   <tr>
+    <td>Inizio:</td>
+    <td>{{edition.start}}</td>
+   </tr>
+   <tr>
+    <td>Fine:</td>
+    <td>{{edition.stop}}</td>
+   </tr>
+   <tr>
+    <td>Luogo:</td>
+    <td>{{edition.place}}</td>
+   </tr>
+  </table>
+ </p>
+
+ <table id="tabella">
+  <colgroup>
+   <col width="380">
+   <col width="60">
+   <col width="60">
+   <col width="380">
+  </colgroup>
+  <tr>
+   <th class="center">{{team0.name}}</th>
+   <td class="center">{{team0.participations[$stateParams.year].goals}}</td>
+   <td class="center">{{team1.participations[$stateParams.year].goals}}</td>
+   <th class="center">{{team1.name}}</th>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <table>
+     <tr>
+      <td>Capitano:</td>
+      <td><a ui-sref="player({id: team0.participations[$stateParams.year].captain.id, year: $stateParams.year})">{{team0.participations[$stateParams.year].captain.name}}</a></td>
+     </tr>
+     <tr>
+      <td>Vicecapitano:</td>
+      <td><a ui-sref="player({id: team0.participations[$stateParams.year].deputy.id, year: $stateParams.year})">{{team0.participations[$stateParams.year].deputy.name}}</a></td>
+     </tr>
+     <tr>
+      <td>Prima coppia:</td>
+      <td><a ui-sref="player({id: team0.participations[$stateParams.year].first_pair[0].id, year: $stateParams.year})">{{team0.participations[$stateParams.year].first_pair[0].name}}</a>, <a ui-sref="player({id: team0.participations[$stateParams.year].first_pair[1].id, year: $stateParams.year})">{{team0.participations[$stateParams.year].first_pair[1].name}}</a></td>
+     </tr>
+     <tr>
+      <td>Partecipanti:</td>
+      <td>{{team0.participations[$stateParams.year].players}}</td>
+     </tr>
+    </table>
+   </td>
+   <td colspan="2">
+    <table>
+     <tr>
+      <td>Capitano:</td>
+      <td><a ui-sref="player({id: team1.participations[$stateParams.year].captain.id, year: $stateParams.year})">{{team1.participations[$stateParams.year].captain.name}}</a></td>
+     </tr>
+     <tr>
+      <td>Vicecapitano:</td>
+      <td><a ui-sref="player({id: team1.participations[$stateParams.year].deputy.id, year: $stateParams.year})">{{team1.participations[$stateParams.year].deputy.name}}</a></td>
+     </tr>
+     <tr>
+      <td>Prima coppia:</td>
+      <td><a ui-sref="player({id: team1.participations[$stateParams.year].first_pair[0].id, year: $stateParams.year})">{{team1.participations[$stateParams.year].first_pair[0].name}}</a>, <a ui-sref="player({id: team1.participations[$stateParams.year].first_pair[1].id, year: $stateParams.year})">{{team1.participations[$stateParams.year].first_pair[1].name}}</a></td>
+     </tr>
+     <tr>
+      <td>Partecipanti:</td>
+      <td>{{team1.participations[$stateParams.year].players}}</td>
+     </tr>
+    </table>
+   </td>
+  </tr>
+ </table>
+ <div class="graph_score">
+  <img src="graph_score.php?match_id=7" />
+ </div>	
+</box>
+
+
+<box color="blue" title="Dettagli giocatori">
+ <div id="toggle_stats" class="toggle">
+  <a id="tab_players" class="active" onclick="toggle(this)">Partecipanti</a>
+  <a id="tab_individual" onclick="toggle(this)">Statistiche individuali</a>
+  <a id="tab_pairs" onclick="toggle(this)">Statistiche per coppie</a>
+ </div>
+
+ <div id="players_stats">
+  <table>
+   <colgroup>
+    <col width="220">
+    <col width="160">
+    <col width="100">
+    <col width="300">
+   </colgroup>
+   <thead>
+    <tr>
+     <th><a href="" ng-click="update_predicate('players', 'name')">Nome</a></th>
+     <th><a href="" ng-click="update_predicate('players', '-play_time')">Tempo di gioco</a></th>
+     <th><a href="" ng-click="update_predicate('players', '-goals')">Gol fatti</a></th>
+     <th>Squadra</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr ng-repeat="player in players | orderBy:players_predicate:players_reverse">
+     <td><a ui-sref="player({id: player.id, year: $stateParams.year})">{{player.name}}</a></td>
+     <td>{{player.play_time | time}}</td>
+     <td>{{player.goals}}</td>
+     <td>
+      <div ng-repeat="(t, years) in player.team">{{t}} (<span ng-repeat="y in years | orderBy"><a ui-sref="player({id: player.id, year: y})" >{{y}}</a><span ng-if="!$last">,&nbsp;</span></span>)</div>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </div>
+
+ <div id="individual_stats" class="hidden">
+  <p>Tutti i partecipanti con almeno {{play_limit | time}} di gioco totali e differenza reti positiva.</p>
+  <table>
+   <colgroup>
+    <col width="220">
+    <col width="160">
+    <col width="100">
+    <col width="100">
+    <col width="100">
+    <col width="100">
+    <col width="100">
+    <col width="100">
+    <col width="300">
+   </colgroup>
+   <thead>
+    <tr>
+     <th><a href="" ng-click="update_predicate('details', 'name')">Nome</a></th>
+     <th><a href="" ng-click="update_predicate('details', '-play_time')">Tempo di gioco</a></th>
+     <th><a href="" ng-click="update_predicate('details', '-goals_made')">Gol fatti</a></th>
+     <th><a href="" ng-click="update_predicate('details', 'goals_taken')">Gol subiti</a></th>
+     <th><a href="" ng-click="update_predicate('details', '-(goals_made - goals_taken)')">Diff. reti</a></th>
+     <th><a href="" ng-click="update_predicate('details', '-goals_made/play_time')">GF/minuto</a></th>
+     <th><a href="" ng-click="update_predicate('details', 'goals_taken/play_time')">GS/minuto</a></th>
+     <th><a href="" ng-click="update_predicate('details', '-(goals_made - goals_taken)/play_time')">Diff/minuto</a></th>
+     <th>Squadra</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr ng-repeat="player in player_details | orderBy:details_predicate:details_reverse">
+     <td><a ui-sref="player({id: player.id, year: $stateParams.year})">{{player.name}}</a></td>
+     <td>{{player.play_time | time}}</td>
+     <td>{{player.goals_made}}</td>
+     <td>{{player.goals_taken}}</td>
+     <td>{{player.goals_made - player.goals_taken}}</td>
+     <td>{{player.goals_made / player.play_time | round:2}}</td>
+     <td>{{player.goals_taken / player.play_time | round:2}}</td>
+     <td>{{(player.goals_made - player.goals_taken) / player.play_time | round:2}}</td>
+     <td>
+      <div ng-repeat="(t, years) in player.team">{{t}} (<span ng-repeat="y in years | orderBy"><a ui-sref="player({id: player.id, year: y})" >{{y}}</a><span ng-if="!$last">,&nbsp;</span></span>)</div>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </div>
+
+ <div id="pairs_stats" class="hidden">
+  <p>Le 60 coppie che hanno giocato per più tempo, con differenza reti positiva.</p>
+  <table>
+   <colgroup>
+    <col width="400">
+    <col width="160">
+    <col width="100">
+    <col width="100">
+    <col width="100">
+    <col width="100">
+    <col width="100">
+    <col width="100">
+   </colgroup>
+   <thead>
+    <tr>
+     <th><a href="" ng-click="update_predicate('pairs', 'name1')">Coppia</a></th>
+     <th><a href="" ng-click="update_predicate('pairs', '-play_time')">Tempo di gioco</a></th>
+     <th><a href="" ng-click="update_predicate('pairs', '-goals_made')">Gol fatti</a></th>
+     <th><a href="" ng-click="update_predicate('pairs', 'goals_taken')">Gol subiti</a></th>
+     <th><a href="" ng-click="update_predicate('pairs', '-(goals_made - goals_taken)')">Diff. reti</a></th>
+     <th><a href="" ng-click="update_predicate('pairs', '-goals_made/play_time')">GF/minuto</a></th>
+     <th><a href="" ng-click="update_predicate('pairs', 'goals_taken/play_time')">GS/minuto</a></th>
+     <th><a href="" ng-click="update_predicate('pairs', '-(goals_made - goals_taken)/play_time')">Diff/minuto</a></th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr ng-repeat="player in pairs | orderBy:pairs_predicate:pairs_reverse">
+     <td><a ui-sref="player({id: player.id1, year: $stateParams.year})">{{player.name1}}</a>, <a ui-sref="player({id: player.id2, year: $stateParams.year})">{{player.name2}}</a></td>
+     <td>{{player.play_time | time}}</td>
+     <td>{{player.goals_made}}</td>
+     <td>{{player.goals_taken}}</td>
+     <td>{{player.goals_made - player.goals_taken}}</td>
+     <td>{{player.goals_made / player.play_time | round:2}}</td>
+     <td>{{player.goals_taken / player.play_time | round:2}}</td>
+     <td>{{(player.goals_made - player.goals_taken) / player.play_time | round:2}}</td>
+    </tr>
+   </tbody>
+  </table>
+</box>

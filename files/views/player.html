@@ -1,0 +1,111 @@
+<div class="container" >
+<box color="blue" title="{{player.name}}">
+ <table id="tabella_top">
+  <tr>
+   <td>
+    <p>
+     <table id="tabella_scelte">
+      <colgroup>
+       <col width="100"/>
+      </colgroup>
+      <tr>
+       <th><a ui-sref="player({id: player.id, year: 'all'})">Globale</a></th>
+      </tr>
+      <tr ng-repeat="year in player.years">
+       <th><a ui-sref="player({id: player.id, year: year})">{{year}}</a></th>
+      </tr>
+     </table>
+    </p>
+   </td>
+   <td class="side_padding">
+    <table>
+     <tr>
+      <td>
+       <h3 ng-if="$stateParams.year == 'all'"><a ui-sref="stats({year: 'all'})">Statistiche generali</a></h3>
+       <h3 ng-if="$stateParams.year != 'all'"><a ui-sref="stats({year: $stateParams.year})">Edizione {{$stateParams.year}}</a></h3>
+       <p>
+        <table id="tabella_informazioni">
+         <colspan>
+          <col width="130" />
+          <col width="230" />
+         </colspan>
+         <tr ng-if="$stateParams.year != 'all'">
+          <td>Squadra:</td><td>{{player.team[$stateParams.year]}}</td>
+         </tr>
+         <tr ng-if="$stateParams.year == 'all'">
+          <td>Partecipazioni:</td><td>{{player.years.length}}</td>
+         </tr>
+         <tr>
+          <td>Tempo di gioco:</td><td>{{player.play_time | time}}</td>
+         </tr>
+         <tr>
+          <td>Gol fatti:</td><td>{{player.goals_made}} ({{player.goals_made / player.play_time | round:2}} / min)</td>
+         </tr>
+         <tr ng-if="player.goals_taken">
+          <td>Gol subiti:</td><td>{{player.goals_taken}} ({{player.goals_taken / player.play_time | round:2}} / min)</td>
+         </tr>
+         <tr ng-if="player.goals_taken">
+          <td>Differenza reti:</td><td>{{player.goals_made - player.goals_taken}} ({{(player.goals_made - player.goals_taken)/player.play_time | round:2}} / min)</td>
+         </tr>
+<!--
+         <tr ng-if="player.coleader">
+          <td>Note:</td><td>titolare insieme a <a ui-sref="player({id: player.coleader.id, year: $stateParams.year})">{{player.coleader.name}}</a></td>
+         </tr>
+-->
+        </table>
+       </p>
+      </td>
+      <td>
+       <img src="graph_time.php?player_id=1&match_id=1" width="520" height="250"/>
+      </td>
+     </tr>
+    </table>
+    <table id="tabella_semplice">
+     <tr>
+      <th>Compagni</th>
+      <th>Avversari</th>
+     </tr>
+     <tr>
+      <td>
+       <table id="tabella" class="sortable">
+        <colgroup>
+         <col width="220">
+         <col width="160">
+        </colgroup>
+        <thead>
+         <th><a href="" ng-click="update_predicate('partners', 'name')">Nome</a></th>
+         <th><a href="" ng-click="update_predicate('partners', '-play_time')">Tempo di gioco</a></th>
+        </thead>
+        <tbody>
+         <tr ng-repeat="t in player.partners | orderBy:partners_predicate:partners_reverse">
+          <td><a ui-sref="player({id: t.id, year: $stateParams.year})">{{t.name}}</a></td>
+          <td>{{t.play_time | time}}</td>
+         </tr>
+        </tbody>
+       </table>
+      </td>
+      <td>
+       <table id="tabella" class="sortable">
+        <colgroup>
+         <col width="220">
+         <col width="160">
+        </colgroup>
+        <thead>
+         <th><a href="" ng-click="update_predicate('adversaries', 'name')">Nome</a></th>
+         <th><a href="" ng-click="update_predicate('adversaries', '-play_time')">Tempo di gioco</a></th>
+        </thead>
+        <tbody>
+         <tr ng-repeat="t in player.adversaries | orderBy:adversaries_predicate:adversaries_reverse">
+          <td><a ui-sref="player({id: t.id, year: $stateParams.year})">{{t.name}}</a></td>
+          <td>{{t.play_time | time}}</td>
+         </tr>
+        </tbody>
+       </table>
+      </td>
+     </tr>
+    </table>
+   </td>
+  </tr>
+ </table>
+</box>
+</div>

@@ -16,13 +16,13 @@ angular.module('24ore.navbar', ['24ore.score'])
     $scope.score = scoreManager;
     $scope.$subpages = {
       "overview": [],
-      "history": [
-        ["Statistiche generali", "history"],
-        ["Edizione 2010", "history/2010"],
-        ["Edizione 2011", "history/2011"],
-        ["Edizione 2012", "history/2012"],
-        ["Edizione 2013", "history/2013"],
-        ["Edizione 2014", "history/2014"]
+      "stats": [
+        ["Statistiche generali", "stats({year: 'all'})"],
+        ["Edizione 2010", "stats({year: 2010})"],
+        ["Edizione 2011", "stats({year: 2011})"],
+        ["Edizione 2012", "stats({year: 2012})"],
+        ["Edizione 2013", "stats({year: 2013})"],
+        ["Edizione 2014", "stats({year: 2014})"]
       ],
       "trailer": [],
       "24h": [
@@ -38,7 +38,7 @@ angular.module('24ore.navbar', ['24ore.score'])
     }
     $scope.subpages = function() {
       var pageMap = {
-        "history": "history",
+        "stats": "stats",
         "trailer": "trailer",
         "overview": "overview",
         "score": "24h",
@@ -46,7 +46,8 @@ angular.module('24ore.navbar', ['24ore.score'])
         "schedule": "24h",
         "rules": "event",
         "credits": "event",
-        "annals": "event"
+        "annals": "event",
+        "player": "stats"
       }
       var page = $state.current.name;
       return $scope.$subpages[pageMap[page]];
