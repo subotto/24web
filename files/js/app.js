@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score', '24ore.stats', '24ore.player'])
+angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score', '24ore.stats', '24ore.player', 'n3-line-chart'])
   .config(function($locationProvider, $stateProvider, $urlRouterProvider) {
     $locationProvider.html5Mode(false);
     $urlRouterProvider

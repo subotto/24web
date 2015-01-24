@@ -240,39 +240,11 @@ function interface_callback(active) {
 </div>
 </box>
 <box color="orange" side="left" style="width: 480px" title="Grafico">
-<div class="toggle" id="toggle_graph">
-    <a onclick="toggle(this)" id="tab_full" class="active">Tutta la partita</a>
-    <a onclick="toggle(this)" id="tab_recent">Ultimi 30 minuti</a>
-</div>
-<div id="full_graph" class="graph">
-	<img id="score_plot_all" />
-</div>
+ <h3>Dall'inizio</h3>
+ <linechart data="score_data" options="score_options" mode="" width="450" height="350" style="display: inline;"></linechart>
+ <h3>Ultimi 30 minuti</h3>
+ <linechart data="score_last_data" options="score_last_options" mode="" width="450" height="350" style="display: inline;"></linechart>
 
-
-<div id="recent_graph" class="hidden graph">
-	<img id="score_plot_recent" />
-</div>
-
-<div id="legend">
-    <table>
-        <tr>
-            <td><span class="green-dashed"></span></td>
-            <td>Punteggio {{score.blue.team}} anno precedente</td>
-        </tr>
-        <tr>
-            <td><span class="green-full"></span></td>
-            <td>Punteggio {{score.blue.team}} anno corrente</td>
-        </tr>
-        <tr>
-            <td><span class="blue-dashed"></span></td>
-            <td>Punteggio {{score.red.team}} anno precedente</td>
-        </tr>
-        <tr>
-            <td><span class="blue-full"></span></td>
-            <td>Punteggio {{score.red.team}} anno corrente</td>
-        </tr>
-    </table>
-</div>
 </box>
 
 </div>

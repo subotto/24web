@@ -62,6 +62,29 @@ class SubottoWeb(object):
                 return "OK"
             except:
                 raise BadRequest()
+        elif data['action'] == 'getevents':
+            if 'year' not in data:
+                raise BadRequest()
+            cur = conn.cursor()
+            cur.execute("""
+                SELECT EXTRACT(EPOCH FROM timestamp - "begin")::Integer as sec,
+                       teams.name, type FROM events
+                INNER JOIN matches ON matches.id = match_id
+                INNER JOIN teams ON teams.id = team_id
+                WHERE (type = 'goal' or type = 'goal_undo') AND year = %s
+                ORDER BY sec;""", (data['year'],))
+            scores = dict()
+            for event in cur.fetchall():
+                if event[1] not in scores:
+                    scores[event[1]] = []
+                if event[2] == 'goal':
+                    scores[event[1]].append(event[0])
+                elif event[2] == 'goal_undo':
+                    scores[event[1]].pop()
+            for k in scores.iterkeys():
+                for l in xrange(len(scores[k])-1, 0, -1):
+                    scores[k][l] -= scores[k][l-1]
+            return scores
         else:
             raise BadRequest()
 
@@ -471,6 +494,19 @@ class SubottoWeb(object):
                 "id": row[0],
                 "play_time": row[3]/60
             })
+        if data['year'] == 'all':
+            cur.execute("""
+                SELECT "begin", "end" FROM stats_turns
+                WHERE p00_id = %s OR p01_id = %s OR p10_id = %s OR p11_id = %s;""",
+                (data['id'], data['id'], data['id'], data['id']))
+        else:
+            cur.execute("""
+                SELECT st.begin, st.end FROM stats_turns AS st
+                INNER JOIN matches ON matches.id = match_id
+                WHERE matches.year = %s AND 
+                      (p00_id = %s OR p01_id = %s OR p10_id = %s OR p11_id = %s);""",
+                (data['year'], data['id'], data['id'], data['id'], data['id']))
+        ret['periods'] = map(lambda x: map(lambda y: (y.hour, y.minute), x), cur.fetchall())
         return ret
 
     @responder
@@ -506,7 +542,7 @@ class SubottoWeb(object):
         response = Response()
         response.mimetype = "application/json"
         response.status_code = 200
-        response.data = json.dumps(data)
+        response.data = json.dumps(data, separators=(',', ':'))
         return response
 
 run_simple(
