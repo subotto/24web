@@ -9,46 +9,46 @@ angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score'
     $stateProvider
       .state('overview', {
         url: '/overview',
-        templateUrl: '/files/views/overview.html',
+        templateUrl: 'files/views/overview.html',
       })
       .state('score', {
         url: '/score',
-        templateUrl: '/files/views/score.html',
+        templateUrl: 'files/views/score.html',
         controller: 'ScoreCtrl'
       })
       .state('trailers', {
         url: '/trailers',
-        templateUrl: '/files/views/trailers.html',
+        templateUrl: 'files/views/trailers.html',
       })
       .state('rules', {
         url: '/rules',
-        templateUrl: '/files/views/rules.html',
+        templateUrl: 'files/views/rules.html',
       })
       .state('annals', {
         url: '/annals',
-        templateUrl: '/files/views/annals.html',
+        templateUrl: 'files/views/annals.html',
       })
       .state('streaming', {
         url: '/streaming',
-        templateUrl: '/files/views/streaming.html',
+        templateUrl: 'files/views/streaming.html',
       })
       .state('schedule', {
         url: '/schedule',
-        templateUrl: '/files/views/schedule.html',
+        templateUrl: 'files/views/schedule.html',
       })
       .state('stats', {
         url: '/stats/{year}',
-        templateUrl: '/files/views/stats.html',
+        templateUrl: 'files/views/stats.html',
         controller: 'StatsCtrl'
       })
       .state('player', {
         url: '/player/{id}/{year}',
-        templateUrl: '/files/views/player.html',
+        templateUrl: 'files/views/player.html',
         controller: 'PlayerCtrl'
       })
       .state('credits', {
         url: '/credits',
-        templateUrl: '/files/views/credits.html',
+        templateUrl: 'files/views/credits.html',
       });
   })
   .filter('time', function() {

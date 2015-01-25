@@ -10,7 +10,7 @@ angular.module('24ore.box', [])
         side: "@",
         style: "@"
       },
-      templateUrl: "/files/partials/box.html",
+      templateUrl: "files/partials/box.html",
       transclude: true
     };
    });
