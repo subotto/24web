@@ -3,9 +3,12 @@
 
 import gevent
 import gevent.monkey
+import gevent.wsgi
 
 gevent.monkey.patch_all()
 
+from psycopg2cffi import compat
+compat.register()
 import psycogreen.gevent
 psycogreen.gevent.patch_psycopg()
 
@@ -15,13 +18,10 @@ import os
 import time
 from werkzeug.wsgi import SharedDataMiddleware, responder
 from werkzeug.wrappers import Request, Response
-from werkzeug.serving import run_simple
 from werkzeug.exceptions import BadRequest, NotFound, Unauthorized, HTTPException
 from werkzeug.routing import Map, Rule
 
 import conf
-
-conn = psycopg2.connect(conf.db)
 
 file_path = os.path.join(os.path.dirname(__file__), 'files/')
 
@@ -36,6 +36,8 @@ class SubottoWeb(object):
             Rule('/stats', methods=['POST'], endpoint='stats'),
             Rule('/player', methods=['POST'], endpoint='player')
         ], encoding_errors='strict')
+        self.conn = psycopg2.connect(conf.db)
+
 
     def score_handler(self, data):
         if 'action' not in data:
@@ -65,7 +67,7 @@ class SubottoWeb(object):
         elif data['action'] == 'getevents':
             if 'year' not in data:
                 raise BadRequest()
-            cur = conn.cursor()
+            cur = self.conn.cursor()
             cur.execute("""
                 SELECT EXTRACT(EPOCH FROM timestamp - "begin")::Integer as sec,
                        teams.name, type FROM events
@@ -89,8 +91,8 @@ class SubottoWeb(object):
             raise BadRequest()
 
     def stats_handler(self, data):
+        cur = self.conn.cursor()
         Int = lambda x: int(x) if x is not None else 0
-        cur = conn.cursor()
         ret = dict()
         match_id = None;
         if data['year'] != 'all':
@@ -360,7 +362,7 @@ class SubottoWeb(object):
         return ret
 
     def player_handler(self, data):
-        cur = conn.cursor()
+        cur = self.conn.cursor()
         if "id" not in data or "year" not in data:
             raise BadRequest()
         cur.execute("""
@@ -545,10 +547,8 @@ class SubottoWeb(object):
         response.data = json.dumps(data, separators=(',', ':'))
         return response
 
-run_simple(
-    '',
-    8080,
-    SubottoWeb(),
-    use_debugger=True,
-    use_reloader=True,
-    static_files={'/files': file_path})
+server = gevent.wsgi.WSGIServer(
+    ("", 8080),
+    SharedDataMiddleware(SubottoWeb(), {'/files': file_path})
+)
+server.serve_forever()
