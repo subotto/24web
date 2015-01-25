@@ -121,7 +121,7 @@ class SubottoWeb(object):
                 # Totale di goal della squadra
                 cur.execute("""
                     SELECT SUM(score_a * CAST(matches.team_a_id = %s AS integer) +
-                               score_b * CAST(matches.team_b_id = %s AS integer)) FROM stats_turns 
+                               score_b * CAST(matches.team_b_id = %s AS integer)) FROM stats_turns
                     INNER JOIN matches ON matches.id = stats_turns.match_id;""", (i, i))
                 res["goals"] = int(cur.fetchone()[0])
             # Numero di giocatori
@@ -209,26 +209,16 @@ class SubottoWeb(object):
             for row in cur.fetchall():
                 res["participations"][row[0]]["players"] = row[1]
         # Elenco partecipanti
-        if match_id is None:
-            cur.execute("""
-                SELECT fname, lname, players.id,
-                       SUM(seconds), SUM(pos_goals),
-                       ARRAY_AGG(team_id), ARRAY_AGG(matches.year)
-                FROM stats_player_matches
-                INNER JOIN players ON players.id = player_id
-                INNER JOIN matches ON match_id = matches.id
-                WHERE fname != '??' OR lname != '??'
-                GROUP BY players.id, fname, lname;""")
-        else:
-            cur.execute(""" 
-                SELECT fname, lname, players.id,
-                       SUM(seconds), SUM(pos_goals),
-                       ARRAY_AGG(team_id), ARRAY_AGG(matches.year)
-                FROM stats_player_matches
-                INNER JOIN players ON players.id = player_id
-                INNER JOIN matches ON match_id = matches.id
-                WHERE (fname != '??' OR lname != '??') AND match_id = %s
-                GROUP BY players.id, fname, lname;""", (match_id,))
+        cur.execute("""
+            SELECT fname, lname, players.id,
+                   SUM(seconds), SUM(pos_goals),
+                   ARRAY_AGG(team_id), ARRAY_AGG(matches.year)
+            FROM stats_player_matches
+            INNER JOIN players ON players.id = player_id
+            INNER JOIN matches ON match_id = matches.id
+            WHERE (fname != '??' OR lname != '??') %s
+            GROUP BY players.id, fname, lname;""" %
+            ("" if match_id is None else ("AND match_id = %s" % match_id)))
         ret["players"] = []
         for player in cur.fetchall():
             p = {
@@ -245,32 +235,20 @@ class SubottoWeb(object):
             ret["players"].append(p)
         # Statistiche dettagliate
         ret["play_limit"] = 120 if match_id is None else 20
-        if match_id is None:
-            cur.execute("""
-                SELECT * FROM (
-                    SELECT fname, lname, players.id,
-                           SUM(seconds) AS s, SUM(pos_goals) AS pg, SUM(neg_goals) AS ng,
-                           ARRAY_AGG(team_id), ARRAY_AGG(matches.year)
-                    FROM stats_player_matches
-                    INNER JOIN players ON players.id = player_id
-                    INNER JOIN matches ON match_id = matches.id
-                    WHERE (fname != '??' OR lname != '??')
-                    GROUP BY players.id, fname, lname
-                ) AS temp
-                WHERE pg > ng AND s > %s;""", (ret["play_limit"]*60,))
-        else:
-            cur.execute(""" 
-                SELECT * FROM (
-                    SELECT fname, lname, players.id,
-                           SUM(seconds) AS s, SUM(pos_goals) AS pg, SUM(neg_goals) AS ng,
-                           ARRAY_AGG(team_id), ARRAY_AGG(matches.year)
-                    FROM stats_player_matches
-                    INNER JOIN players ON players.id = player_id
-                    INNER JOIN matches ON match_id = matches.id
-                    WHERE (fname != '??' OR lname != '??') AND match_id = %s
-                    GROUP BY players.id, fname, lname
-                ) AS temp
-                WHERE pg > ng AND s > %s;""", (match_id, ret["play_limit"]*60))
+        cur.execute("""
+            SELECT * FROM (
+                SELECT fname, lname, players.id,
+                       SUM(seconds) AS s, SUM(pos_goals) AS pg, SUM(neg_goals) AS ng,
+                       ARRAY_AGG(team_id), ARRAY_AGG(matches.year)
+                FROM stats_player_matches
+                INNER JOIN players ON players.id = player_id
+                INNER JOIN matches ON match_id = matches.id
+                WHERE (fname != '??' OR lname != '??') %s
+                GROUP BY players.id, fname, lname
+            ) AS temp
+            WHERE pg > ng AND s > %%s;""" %
+            ("" if match_id is None else ("AND match_id = %s" % match_id)),
+            (ret["play_limit"]*60,))
         ret["player_details"] = []
         for player in cur.fetchall():
             p = {
@@ -287,67 +265,37 @@ class SubottoWeb(object):
                 p["team"][ret["team%s" % (t-1)]["name"]].append(y)
             ret["player_details"].append(p)
         # Coppie
-        if match_id is None:
-            cur.execute("""
-                SELECT p0.id, p0.fname, p0.lname,
-                       p1.id, p1.fname, p1.lname,
-                       pos_score, neg_score, seconds
+        cur.execute("""
+            SELECT p0.id, p0.fname, p0.lname,
+                   p1.id, p1.fname, p1.lname,
+                   pos_score, neg_score, seconds
+            FROM (
+                SELECT p0_id, p1_id,
+                       SUM(pos_score) as pos_score,
+                       SUM(neg_score) as neg_score,
+                       SUM(seconds) as seconds
                 FROM (
-                    SELECT p0_id, p1_id,
-                           SUM(pos_score) as pos_score,
-                           SUM(neg_score) as neg_score,
-                           SUM(seconds) as seconds
-                    FROM (
-                        SELECT p00_id as p0_id, p01_id as p1_id,
-                               score_a as pos_score, score_b as neg_score,
-                               EXTRACT(EPOCH FROM "end" - "begin")::Integer as seconds,
-                               match_id
-                        FROM stats_turns
-                        UNION ALL
-                        SELECT p10_id as p0_id, p11_id as p1_id,
-                               score_b as pos_score, score_b as neg_score,
-                               EXTRACT(EPOCH FROM "end" - "begin")::Integer as seconds,
-                               match_id
-                        FROM stats_turns
-                    ) AS temp
-                    GROUP BY p0_id, p1_id
+                    SELECT p00_id as p0_id, p01_id as p1_id,
+                           score_a as pos_score, score_b as neg_score,
+                           EXTRACT(EPOCH FROM "end" - "begin")::Integer as seconds,
+                           match_id
+                    FROM stats_turns
+                    UNION
+                    SELECT p10_id as p0_id, p11_id as p1_id,
+                           score_b as pos_score, score_b as neg_score,
+                           EXTRACT(EPOCH FROM "end" - "begin")::Integer as seconds,
+                           match_id
+                    FROM stats_turns
                 ) AS temp
-                INNER JOIN players as p0 on p0.id = p0_id
-                INNER JOIN players as p1 on p1.id = p1_id
-                WHERE pos_score > neg_score
-                ORDER BY seconds DESC 
-                LIMIT 60;""")
-        else:
-            cur.execute("""
-                SELECT p0.id, p0.fname, p0.lname,
-                       p1.id, p1.fname, p1.lname,
-                       pos_score, neg_score, seconds
-                FROM (
-                    SELECT p0_id, p1_id,
-                           SUM(pos_score) as pos_score,
-                           SUM(neg_score) as neg_score,
-                           SUM(seconds) as seconds
-                    FROM (
-                        SELECT p00_id as p0_id, p01_id as p1_id,
-                               score_a as pos_score, score_b as neg_score,
-                               EXTRACT(EPOCH FROM "end" - "begin")::Integer as seconds,
-                               match_id
-                        FROM stats_turns
-                        UNION
-                        SELECT p10_id as p0_id, p11_id as p1_id,
-                               score_b as pos_score, score_b as neg_score,
-                               EXTRACT(EPOCH FROM "end" - "begin")::Integer as seconds,
-                               match_id
-                        FROM stats_turns
-                    ) AS temp
-                    WHERE match_id = %s
-                    GROUP BY p0_id, p1_id
-                ) AS temp
-                INNER JOIN players as p0 on p0.id = p0_id
-                INNER JOIN players as p1 on p1.id = p1_id
-                WHERE pos_score > neg_score
-                ORDER BY seconds DESC 
-                LIMIT 60;""", (match_id,))
+                %s
+                GROUP BY p0_id, p1_id
+            ) AS temp
+            INNER JOIN players as p0 on p0.id = p0_id
+            INNER JOIN players as p1 on p1.id = p1_id
+            WHERE pos_score > neg_score
+            ORDER BY seconds DESC
+            LIMIT 60;""" % ("" if match_id is None else
+            ("WHERE match_id = %s" % match_id)))
         ret["pairs"] = []
         for row in cur.fetchall():
             ret["pairs"].append({
@@ -369,9 +317,9 @@ class SubottoWeb(object):
             SELECT players.id, fname, lname,
                    year, teams.name, pos_goals, neg_goals, seconds
             FROM players
-            INNER JOIN player_matches ON players.id = player_matches.player_id 
+            INNER JOIN player_matches ON players.id = player_matches.player_id
             INNER JOIN matches ON match_id = matches.id
-            INNER JOIN teams ON teams.id = team_id 
+            INNER JOIN teams ON teams.id = team_id
             INNER JOIN stats_player_matches ON players.id = stats_player_matches.player_id
                                             AND matches.id = stats_player_matches.match_id
             WHERE year IS NOT NULL AND players.id = %s;""", (data["id"],))
@@ -401,41 +349,26 @@ class SubottoWeb(object):
                 ret["goals_taken"] = dict(zip(years, goals_taken))[yr]
             except:
                 raise NotFound()
-        if data['year'] == 'all':
-            cur.execute("""
-                SELECT other, fname, lname, SUM(seconds) FROM (
-                    SELECT CASE WHEN p0_id = %s THEN p1_id ELSE p0_id END AS other, seconds
-                    FROM (
-                        SELECT p00_id AS p0_id, p01_id AS p1_id,
-                               (EXTRACT(EPOCH FROM "end" - "begin"))::Integer AS seconds 
-                        FROM stats_turns
-                        UNION
-                        SELECT p10_id AS p0_id, p11_id AS p1_id,
-                               (EXTRACT(EPOCH FROM "end" - "begin"))::Integer AS seconds
-                        FROM stats_turns
-                    ) AS temp
-                    WHERE p0_id = %s or p1_id = %s
+        # Compagni
+        cur.execute("""
+            SELECT other, fname, lname, SUM(seconds) FROM (
+                SELECT CASE WHEN p0_id = %%s THEN p1_id ELSE p0_id END AS other, seconds
+                FROM (
+                    SELECT p00_id AS p0_id, p01_id AS p1_id, match_id,
+                           (EXTRACT(EPOCH FROM "end" - "begin"))::Integer AS seconds
+                    FROM stats_turns
+                    UNION
+                    SELECT p10_id AS p0_id, p11_id AS p1_id, match_id,
+                           (EXTRACT(EPOCH FROM "end" - "begin"))::Integer AS seconds
+                    FROM stats_turns
                 ) AS temp
-                INNER JOIN players ON other = id
-                GROUP BY other, fname, lname;""", (data["id"], data["id"], data["id"]))
-        else:
-            cur.execute("""
-                SELECT other, fname, lname, SUM(seconds) FROM (
-                    SELECT CASE WHEN p0_id = %s THEN p1_id ELSE p0_id END AS other, seconds
-                    FROM (
-                        SELECT p00_id AS p0_id, p01_id AS p1_id, match_id,
-                               (EXTRACT(EPOCH FROM "end" - "begin"))::Integer AS seconds 
-                        FROM stats_turns
-                        UNION
-                        SELECT p10_id AS p0_id, p11_id AS p1_id, match_id,
-                               (EXTRACT(EPOCH FROM "end" - "begin"))::Integer AS seconds
-                        FROM stats_turns
-                    ) AS temp
-                    INNER JOIN matches ON match_id = matches.id
-                    WHERE (p0_id = %s OR p1_id = %s) AND matches.year = %s
-                ) AS temp
-                INNER JOIN players ON other = id
-                GROUP BY other, fname, lname;""", (data["id"], data["id"], data["id"], yr))
+                INNER JOIN matches ON match_id = matches.id
+                WHERE (p0_id = %%s OR p1_id = %%s) %s
+            ) AS temp
+            INNER JOIN players ON other = id
+            GROUP BY other, fname, lname;""" %
+            ("" if data['year'] == 'all' else (" AND matches.year = %s" % yr)),
+            (data["id"], data["id"], data["id"]))
         ret['partners'] = []
         for row in cur.fetchall():
             ret['partners'].append({
@@ -443,52 +376,32 @@ class SubottoWeb(object):
                 "id": row[0],
                 "play_time": row[3]/60
             })
-        if data['year'] == 'all':
-            cur.execute("""
-                SELECT p_id, fname, lname, SUM(seconds) FROM (
-                    WITH adversaries AS (
-                        SELECT p00_id AS p0_id, p01_id AS p1_id,
-                               (EXTRACT(EPOCH FROM "end" - "begin"))::Integer AS seconds
-                        FROM stats_turns
-                        WHERE (p10_id = %s OR p11_id = %s)
-                        UNION
-                        SELECT p10_id AS p0_id, p11_id AS p1_id,
-                               (EXTRACT(EPOCH FROM "end" - "begin"))::Integer AS seconds
-                        FROM stats_turns
-                        WHERE (p00_id = %s or p01_id = %s)
-                    )
-                    SELECT p0_id AS p_id, seconds FROM adversaries
+        # Avversari
+        cur.execute("""
+            SELECT p_id, fname, lname, SUM(seconds) FROM (
+                WITH adversaries AS (
+                    SELECT p00_id AS p0_id, p01_id AS p1_id,
+                           (EXTRACT(EPOCH FROM st.end - st.begin))::Integer AS seconds
+                    FROM stats_turns AS st
+                    INNER JOIN matches ON matches.id = match_id
+                    WHERE (p10_id = %%s OR p11_id = %%s) %s
                     UNION
-                    SELECT p1_id AS p_id, seconds FROM adversaries)
-                AS temp
-                INNER JOIN players ON p_id = players.id
-                WHERE fname != '??' OR lname != '??'
-                GROUP BY p_id, fname, lname;""",
-                (data["id"], data["id"], data["id"], data["id"]))
-        else:
-            cur.execute("""
-                SELECT p_id, fname, lname, SUM(seconds) FROM (
-                    WITH adversaries AS (
-                        SELECT p00_id AS p0_id, p01_id AS p1_id,
-                               (EXTRACT(EPOCH FROM st.end - st.begin))::Integer AS seconds
-                        FROM stats_turns AS st
-                        INNER JOIN matches ON matches.id = match_id
-                        WHERE matches.year = %s AND (p10_id = %s OR p11_id = %s)
-                        UNION
-                        SELECT p10_id AS p0_id, p11_id AS p1_id,
-                               (EXTRACT(EPOCH FROM st.end - st.begin))::Integer AS seconds
-                        FROM stats_turns AS st
-                        INNER JOIN matches ON matches.id = match_id
-                        WHERE matches.year = %s AND (p00_id = %s or p01_id = %s)
-                    )
-                    SELECT p0_id AS p_id, seconds FROM adversaries
-                    UNION
-                    SELECT p1_id AS p_id, seconds FROM adversaries)
-                AS temp
-                INNER JOIN players ON p_id = players.id
-                WHERE fname != '??' OR lname != '??'
-                GROUP BY p_id, fname, lname;""",
-                (yr, data["id"], data["id"], yr, data["id"], data["id"]))
+                    SELECT p10_id AS p0_id, p11_id AS p1_id,
+                           (EXTRACT(EPOCH FROM st.end - st.begin))::Integer AS seconds
+                    FROM stats_turns AS st
+                    INNER JOIN matches ON matches.id = match_id
+                    WHERE (p00_id = %%s or p01_id = %%s) %s
+                )
+                SELECT p0_id AS p_id, seconds FROM adversaries
+                UNION
+                SELECT p1_id AS p_id, seconds FROM adversaries)
+            AS temp
+            INNER JOIN players ON p_id = players.id
+            WHERE fname != '??' OR lname != '??'
+            GROUP BY p_id, fname, lname;""" %
+            (("", "") if data['year'] == 'all' else
+            ("AND matches.year = %s" % yr, "AND matches.year = %s" % yr)),
+            (data["id"], data["id"], data["id"], data["id"]))
         ret['adversaries'] = []
         for row in cur.fetchall():
             ret['adversaries'].append({
@@ -496,18 +409,13 @@ class SubottoWeb(object):
                 "id": row[0],
                 "play_time": row[3]/60
             })
-        if data['year'] == 'all':
-            cur.execute("""
-                SELECT "begin", "end" FROM stats_turns
-                WHERE p00_id = %s OR p01_id = %s OR p10_id = %s OR p11_id = %s;""",
-                (data['id'], data['id'], data['id'], data['id']))
-        else:
-            cur.execute("""
-                SELECT st.begin, st.end FROM stats_turns AS st
-                INNER JOIN matches ON matches.id = match_id
-                WHERE matches.year = %s AND 
-                      (p00_id = %s OR p01_id = %s OR p10_id = %s OR p11_id = %s);""",
-                (data['year'], data['id'], data['id'], data['id'], data['id']))
+        cur.execute("""
+            SELECT st.begin, st.end FROM stats_turns AS st
+            INNER JOIN matches ON matches.id = match_id
+            WHERE (p00_id = %%s OR p01_id = %%s OR
+                   p10_id = %%s OR p11_id = %%s) %s;""" %
+            ("" if data['year'] == 'all' else "AND matches.year = %s" % yr),
+            (data['id'], data['id'], data['id'], data['id']))
         ret['periods'] = map(lambda x: map(lambda y: (y.hour, y.minute), x), cur.fetchall())
         return ret
 
@@ -518,7 +426,7 @@ class SubottoWeb(object):
             endpoint, args = route.match()
         except HTTPException:
             return NotFound()
-        
+
         if endpoint == 'root':
             with open(os.path.join(file_path, "index.html"), "r") as f:
                 data = f.read()
