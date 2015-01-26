@@ -10,6 +10,7 @@ angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score'
       .state('overview', {
         url: '/overview',
         templateUrl: 'files/views/overview.html',
+        controller: 'overviewCtrl'
       })
       .state('score', {
         url: '/score',
@@ -50,6 +51,9 @@ angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score'
         url: '/credits',
         templateUrl: 'files/views/credits.html',
       });
+  })
+  .controller('overviewCtrl', function($scope) {
+    $scope.load_twitter = twttr.widgets.load;
   })
   .filter('time', function() {
     return function(time) {
