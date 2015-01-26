@@ -32,6 +32,7 @@ angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score'
       .state('streaming', {
         url: '/streaming',
         templateUrl: 'files/views/streaming.html',
+        controller: 'streamingCtrl'
       })
       .state('schedule', {
         url: '/schedule',
@@ -54,6 +55,9 @@ angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score'
   })
   .controller('overviewCtrl', function($scope) {
     $scope.load_twitter = twttr.widgets.load;
+  })
+  .controller('streamingCtrl', function($scope) {
+    $scope.quality = 'hi';
   })
   .filter('time', function() {
     return function(time) {

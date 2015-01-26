@@ -3,12 +3,12 @@
 
 <div id="time_box">{{time}}</div>
 
-<div class="toggle" id="toggle_interface">
-    <a onclick="toggle(this)" id="tab_classic" class="active">Visualizzazione classica</a>
-    <a onclick="toggle(this)" id="tab_graphic">Visualizzazione avanzata</a>
+<div class="toggle">
+    <a ng-click="UI = 'classic'" ng-class="{active: UI == 'classic'}">Visualizzazione classica</a>
+    <a ng-click="UI = 'graphic'" ng-class="{active: UI == 'graphic'}">Visualizzazione avanzata</a>
 </div>
 
-<div id="graphic_interface" class="hidden">
+<div ng-if="UI == 'graphic'" id="graphic_interface">
 	<div id="blue_team">{{score.blue.team}}</div>
 	<div>
 		<span id="blue_attacker" class="player">{{score.blue.attacker.name}}</span>
@@ -144,8 +144,7 @@
 
 </div>
 
-
-<div id="classic_interface">
+<div ng-if="UI == 'classic'" id="classic_interface">
 	
 	<div id="team0">{{score.blue.team}}</div>
 	<div id="team1">{{score.red.team}}</div>
@@ -199,14 +198,6 @@
 <div id="countdown24h" >
 
 </div>
-
-<script>
-function interface_callback(active) {
-    countdown();
-    if (active == "classic") stop_svg();
-    else start_svg();
-}
-</script>
 </box>
 
 <box color="purple" side="right" style="width: 480px" title="Statistiche">
@@ -239,11 +230,14 @@ function interface_callback(active) {
 </table>
 </div>
 </box>
+
 <box color="orange" side="left" style="width: 480px" title="Grafico">
- <h3>Dall'inizio</h3>
- <linechart data="score_data" options="score_options" mode="" width="450" height="350" style="display: inline;"></linechart>
- <h3>Ultimi 30 minuti</h3>
- <linechart data="score_last_data" options="score_last_options" mode="" width="450" height="350" style="display: inline;"></linechart>
+<div class="toggle">
+    <a ng-click="graph = 'full'" ng-class="{active: graph == 'full'}">Dall'inizio</a>
+    <a ng-click="graph = 'last'" ng-class="{active: graph == 'last'}">Ultimi 30 minuti</a>
+</div>
+ <linechart data="score_data" options="score_options" mode="" width="450" height="350" style="display: inline;" ng-if="graph == 'full'"></linechart>
+ <linechart data="score_last_data" options="score_last_options" mode="" width="450" height="350" style="display: inline;" ng-if="graph == 'last'"></linechart>
 
 </box>
 

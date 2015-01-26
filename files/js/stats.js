@@ -2,6 +2,7 @@
 
 angular.module('24ore.stats', [])
   .controller('StatsCtrl', function($scope, $stateParams, $http) {
+    $scope.stype = 'players';
     $scope.$stateParams = $stateParams;
     $http.post("stats", {year: $scope.$stateParams.year})
       .success(function(data, status, headers, config) {
@@ -123,7 +124,7 @@ angular.module('24ore.stats', [])
             x = Math.floor(x/60);
             var hours = Math.floor(x/60);
             var minutes = x - hours*60;
-            return series.y + " " + hours + ":" + minutes + " - " + y; 
+            return series.y + " " + hours + ":" + minutes + " - " + y;
         }
       }
     };

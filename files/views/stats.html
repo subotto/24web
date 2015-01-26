@@ -135,13 +135,12 @@
 
 
 <box color="blue" title="Dettagli giocatori">
- <div id="toggle_stats" class="toggle">
-  <a id="tab_players" class="active" onclick="toggle(this)">Partecipanti</a>
-  <a id="tab_individual" onclick="toggle(this)">Statistiche individuali</a>
-  <a id="tab_pairs" onclick="toggle(this)">Statistiche per coppie</a>
+ <div class="toggle">
+  <a ng-click="stype = 'players'" ng-class="{active: stype == 'players'}">Partecipanti</a>
+  <a ng-click="stype = 'individual'" ng-class="{active: stype == 'individual'}">Statistiche individuali</a>
+  <a ng-click="stype = 'pairs'" ng-class="{active: stype == 'pairs'}">Statistiche per coppie</a>
  </div>
-
- <div id="players_stats">
+ <div ng-show="stype == 'players'">
   <table>
    <colgroup>
     <col width="220">
@@ -170,7 +169,7 @@
   </table>
  </div>
 
- <div id="individual_stats" class="hidden">
+ <div ng-show="stype == 'individual'">
   <p>Tutti i partecipanti con almeno {{play_limit | time}} di gioco totali e differenza reti positiva.</p>
   <table>
    <colgroup>
@@ -215,7 +214,7 @@
   </table>
  </div>
 
- <div id="pairs_stats" class="hidden">
+ <div ng-show="stype == 'pairs'">
   <p>Le 60 coppie che hanno giocato per più tempo, con differenza reti positiva.</p>
   <table>
    <colgroup>

@@ -71,6 +71,8 @@ angular.module('24ore.score', [])
   })
   .controller('ScoreCtrl', function($scope, $timeout, $http, scoreManager) {
     var currentYear = 2014;
+    $scope.UI = "graphic";
+    $scope.graph = "full";
     $http.post("score", {year: currentYear-1, action: 'getevents'})
       .success(function(data, status, headers, config) {
         $scope.olddata = data;

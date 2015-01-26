@@ -1,23 +1,21 @@
 <div class="container" >
  <box color="blue" title="24 ore: streaming live">
-  <div class="toggle" id="toggle_quality">
-   <a onclick="toggle(this)" id="tab_low" class="active">Bassa qualità</a>
-   <a onclick="toggle(this)" id="tab_hi">Alta qualità</a>
-  </div>
+   <div class="toggle">
+    <a ng-click="quality = 'hi'" ng-class="{active: quality == 'hi'}">Alta qualità</a>
+    <a ng-click="quality = 'low'" ng-class="{active: quality == 'low'}">Bassa qualità</a>
+   </div>
 
-  <center id="low_quality">
+  <center ng-if="quality == 'low'">
    <video id="my_video_1" class="video-js vjs-default-skin" width="800" height="450" controls preload="auto" poster="files/images/subotto2.jpg" data-setup="{}">
     <source src="http://soyuz.sns.it:8001/low" type="video/x-flv">
    </video>
   </center>
 
-  <center id="hi_quality" class="hidden">
+  <center ng-if="quality == 'hi'">
    <video id="my_video_1" class="video-js vjs-default-skin" width="800" height="450" controls preload="auto" poster="files/images/subotto2.jpg" data-setup="{}">
     <source src="http://soyuz.sns.it:8000/hi" type="video/x-flv">
    </video>
   </center>
-
-  <script>loadtoggle("quality")</script>
 
   <p>Link diretto allo streaming (<a href="http://soyuz.uz.sns.it:8001/low">bassa qualit&agrave;</a>, <a href="http://soyuz.uz.sns.it:8000/hi">alta qualit&agrave;</a>).</p>
 
