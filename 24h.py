@@ -18,7 +18,7 @@ import os
 import time
 from werkzeug.wsgi import SharedDataMiddleware, responder
 from werkzeug.wrappers import Request, Response
-from werkzeug.exceptions import BadRequest, NotFound, Unauthorized, HTTPException
+from werkzeug.exceptions import BadRequest, NotFound, Unauthorized, HTTPException, InternalServerError
 from werkzeug.routing import Map, Rule
 
 import conf
@@ -56,16 +56,12 @@ class SubottoWeb(object):
         if data['action'] == "get":
             return self.score
         elif data['action'] == "set":
-            if 'pw' not in data or data['pw'] != conf.scorepw:
+            if 'password' not in data or data['password'] != conf.scorepw:
                 raise Unauthorized()
-            if 'field' not in data or 'value' not in data:
+            if 'data' not in data:
                 raise BadRequest()
             try:
-                obj = self.score
-                fields = data['field'].split('.')
-                for f in fields[:-1]:
-                    obj = obj[f]
-                obj[fields[-1]] = data['value']
+                self.score = data['data']
                 ct = time.time()
                 if ct - self.json_time > 10:
                     self.json_time = ct
@@ -74,7 +70,7 @@ class SubottoWeb(object):
                     return "OK, status saved"
                 return "OK"
             except:
-                raise BadRequest()
+                raise InternalServerError()
         elif data['action'] == 'getevents':
             if 'year' not in data:
                 raise BadRequest()
