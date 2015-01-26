@@ -36,8 +36,19 @@ class SubottoWeb(object):
             Rule('/stats', methods=['POST'], endpoint='stats'),
             Rule('/player', methods=['POST'], endpoint='player')
         ], encoding_errors='strict')
-        self.conn = psycopg2.connect(conf.db)
+        self.init_connection_pool(10)
 
+    def init_connection_pool(self, size):
+        self.connections = []
+        self.last_c = 0
+        self.cp_size = size
+        for i in xrange(size):
+            self.connections.append(psycopg2.connect(conf.db))
+
+    def get_cursor(self):
+        c = self.connections[self.last_c]
+        self.last_c = (self.last_c + 1) % self.cp_size
+        return c.cursor()
 
     def score_handler(self, data):
         if 'action' not in data:
@@ -67,7 +78,7 @@ class SubottoWeb(object):
         elif data['action'] == 'getevents':
             if 'year' not in data:
                 raise BadRequest()
-            cur = self.conn.cursor()
+            cur = self.get_cursor()
             cur.execute("""
                 SELECT EXTRACT(EPOCH FROM timestamp - "begin")::Integer as sec,
                        teams.name, type FROM events
@@ -91,7 +102,7 @@ class SubottoWeb(object):
             raise BadRequest()
 
     def stats_handler(self, data):
-        cur = self.conn.cursor()
+        cur = self.get_cursor()
         Int = lambda x: int(x) if x is not None else 0
         ret = dict()
         match_id = None;
@@ -310,7 +321,7 @@ class SubottoWeb(object):
         return ret
 
     def player_handler(self, data):
-        cur = self.conn.cursor()
+        cur = self.get_cursor()
         if "id" not in data or "year" not in data:
             raise BadRequest()
         cur.execute("""
