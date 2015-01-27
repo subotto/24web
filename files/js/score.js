@@ -9,6 +9,8 @@ angular.module('24ore.score', [])
         .success(function(data, status, headers, config) {
           for (var i in data)
             $window.scoreData[i] = data[i];
+          for (var t in data.teams)
+            data.teams[data.teams[t].color] = data.teams[t];
         })
         .error(function(data, status, headers, config) {
           console.log("Error!");
