@@ -27,8 +27,11 @@ file_path = os.path.join(os.path.dirname(__file__), 'files/')
 
 class SubottoWeb(object):
     def __init__(self):
-        with open("score.json", "r") as f:
-            self.score = json.load(f)
+        try:
+            with open("score.json", "r") as f:
+                self.score = json.load(f)
+            except:
+                self.score = {}
         self.json_time = time.time()
         self.router = Map([
             Rule('/', methods=['GET', 'POST'], endpoint='root'),
@@ -231,7 +234,7 @@ class SubottoWeb(object):
             p = {
                 "name": player[0] + " " + player[1],
                 "id": player[2],
-                "play_time": player[3]/60,
+                "play_time": player[3],
                 "goals": player[4],
                 "team": dict()
             }
@@ -261,7 +264,7 @@ class SubottoWeb(object):
             p = {
                 "name": player[0] + " " + player[1],
                 "id": player[2],
-                "play_time": player[3]/60,
+                "play_time": player[3],
                 "goals_made": player[4],
                 "goals_taken": player[5],
                 "team": dict()
@@ -310,7 +313,7 @@ class SubottoWeb(object):
                 "name2": row[4] + " " + row[5],
                 "id1": row[0],
                 "id2": row[3],
-                "play_time": row[8]/60,
+                "play_time": row[8],
                 "goals_made": row[6],
                 "goals_taken": row[7]
             })
@@ -335,7 +338,7 @@ class SubottoWeb(object):
             raise NotFound()
         years = map(lambda x: x[3], res)
         teams = map(lambda x: x[4], res)
-        play_time = map(lambda x: x[7]/60, res)
+        play_time = map(lambda x: x[7], res)
         goals_made = map(lambda x: x[5], res)
         goals_taken = map(lambda x: x[6], res)
         ret = {
@@ -381,7 +384,7 @@ class SubottoWeb(object):
             ret['partners'].append({
                 "name": row[1] + " " + row[2],
                 "id": row[0],
-                "play_time": row[3]/60
+                "play_time": row[3]
             })
         # Avversari
         cur.execute("""
@@ -414,7 +417,7 @@ class SubottoWeb(object):
             ret['adversaries'].append({
                 "name": row[1] + " " + row[2],
                 "id": row[0],
-                "play_time": row[3]/60
+                "play_time": row[3]
             })
         cur.execute("""
             SELECT st.begin, st.end FROM stats_turns AS st

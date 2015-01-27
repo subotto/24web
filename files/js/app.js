@@ -61,18 +61,30 @@ angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score'
   })
   .filter('time', function() {
     return function(time) {
-      var hours = Math.floor(time / 60);
-      var minutes = Math.floor(time - hours*60);
-      var hlabel = hours == 1 ? " ora" : " ore";
-      var mlabel = minutes == 1 ? " minuto" : " minuti";
+      if (time == 0) return "0s";
+      var time = Math.floor(time);
+      var hours = Math.floor(time / 3600);
+      var minutes = Math.floor(time/60 - hours*60);
+      var seconds = Math.floor(time - hours*3600 - minutes*60);
+      var l1 = "h";
+      var v1 = hours;
+      var l2 = "m";
+      var v2 = minutes;
+      if (time < 3600) {
+        l1 = "m";
+        v1 = minutes;
+        l2 = "s";
+        v2 = seconds;
+      }
       var ret = "";
-      if (hours) ret += hours + hlabel;
-      if (minutes) ret += (ret==""?"":", ") + minutes + mlabel;
+      if (v1) ret += v1 + l1;
+      if (v2) ret += (ret==""?"":" ") + v2 + l2;
       return ret;
     }
   })
   .filter('round', function() {
     return function(f, p) {
+      if (f == "Infinity") return "∞";
       return Math.round(f * Math.pow(10, p)) / Math.pow(10, p);
     }
   })

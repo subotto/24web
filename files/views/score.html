@@ -1,39 +1,45 @@
 <div class="container" >
 <box color="blue" title="24 ore: aggiornamento in tempo reale" >
 
-<div id="time_box">{{time}}</div>
-
-<div class="toggle">
+<div class="toggle" ng-show="score.status == 'running'">
     <a ng-click="UI = 'classic'" ng-class="{active: UI == 'classic'}">Visualizzazione classica</a>
     <a ng-click="UI = 'graphic'" ng-class="{active: UI == 'graphic'}">Visualizzazione avanzata</a>
 </div>
 
-<div ng-if="UI == 'graphic'" id="graphic_interface">
-	<div id="blue_team">{{score.blue.team}}</div>
+<div ng-show="UI == 'graphic' && score.status == 'running'" id="graphic_interface">
+	<div id="blue_team">{{score.teams[0].name}}</div>
 	<div>
-		<span id="blue_attacker" class="player">{{score.blue.attacker.name}}</span>
+		<span id="blue_attacker" class="player">
+		  <a ui-sref="player({id: score.teams[0].players[0].id, year:'all'})">
+		    {{score.teams[0].players[0].fname}} {{score.teams[0].players[0].lname}}
+		  </a>
+		</span>
 		<span id="blue_attacker_stats" class="stats">
 		 <table class="player_stats">
-		  <tr><td>Partecipazioni</td><td>{{score.blue.attacker.matches}}</td></tr>
-		  <tr><td>Tempo di gioco</td><td>{{score.blue.attacker.play_time}}</td></tr>
-		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.blue.attacker.total_time}}</td></tr>
-		  <tr><td>Gol fatti</td><td>{{score.blue.attacker.goals}}</td></tr>
-		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.blue.attacker.total_goals}}</td></tr>
+		  <tr><td>Partecipazioni</td><td>{{score.teams[0].players[0].participations}}</td></tr>
+		  <tr><td>Tempo di gioco</td><td>{{score.teams[0].players[0].played_time | time}}</td></tr>
+		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[0].players[0].total_time | time}}</td></tr>
+		  <tr><td>Gol fatti</td><td>{{score.teams[0].players[0].num_goals}}</td></tr>
+		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[0].players[0].total_goals}}</td></tr>
 		 </table>
 		</span>
-		<span id="blue_defender" class="player">{{score.blue.defender.name}}</span>
+		<span id="blue_defender" class="player">
+		  <a ui-sref="player({id: score.teams[0].players[1].id, year:'all'})">
+		    {{score.teams[0].players[1].fname}} {{score.teams[0].players[1].lname}}
+		  </a>
+		</span>
 		<span id="blue_defender_stats" class="stats">
 		 <table class="player_stats">
-		  <tr><td>Partecipazioni</td><td>{{score.blue.defender.matches}}</td></tr>
-		  <tr><td>Tempo di gioco</td><td>{{score.blue.defender.play_time}}</td></tr>
-		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.blue.defender.total_time}}</td></tr>
-		  <tr><td>Gol fatti</td><td>{{score.blue.defender.goals}}</td></tr>
-		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.blue.defender.total_goals}}</td></tr>
+		  <tr><td>Partecipazioni</td><td>{{score.teams[0].players[1].participations}}</td></tr>
+		  <tr><td>Tempo di gioco</td><td>{{score.teams[0].players[1].played_time | time}}</td></tr>
+		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[0].players[1].total_time | time}}</td></tr>
+		  <tr><td>Gol fatti</td><td>{{score.teams[0].players[1].num_goals}}</td></tr>
+		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[0].players[1].total_goals}}</td></tr>
 		 </table>
 		</span>
 	</div>
 	<div>
-		<span id="red_score">{{score.red.score}}</span>
+		<span id="red_score">{{score.teams[1].score}}</span>
 		<div id="field_svg">
 <svg id="dfse" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" width="100%" viewbox="0 0 640.18 380.17" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs id="defs4066">
@@ -110,97 +116,120 @@
   </g>
 </svg>
 </div>
-		<span id="blue_score">{{score.blue.score}}</span>
+		<span id="blue_score">{{score.teams[0].score}}</span>
 	</div>
 	
 	<div>
-		<span id="red_attacker" class="player">{{score.red.attacker.name}}</span>
+		<span id="red_attacker" class="player">
+		  <a ui-sref="player({id: score.teams[1].players[0].id, year:'all'})">
+		    {{score.teams[1].players[0].fname}} {{score.teams[1].players[0].lname}}
+		  </a>
+		</span>
 		<span id="red_attacker_stats" class="stats">
 		 <table class="player_stats">
-		  <tr><td>Partecipazioni</td><td>{{score.red.attacker.matches}}</td></tr>
-		  <tr><td>Tempo di gioco</td><td>{{score.red.attacker.play_time}}</td></tr>
-		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.red.attacker.total_time}}</td></tr>
-		  <tr><td>Gol fatti</td><td>{{score.red.attacker.goals}}</td></tr>
-		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.red.attacker.total_goals}}</td></tr>
+		  <tr><td>Partecipazioni</td><td>{{score.teams[1].players[0].participations}}</td></tr>
+		  <tr><td>Tempo di gioco</td><td>{{score.teams[1].players[0].played_time | time}}</td></tr>
+		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[1].players[0].total_time | time}}</td></tr>
+		  <tr><td>Gol fatti</td><td>{{score.teams[1].players[0].num_goals}}</td></tr>
+		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[1].players[0].total_goals}}</td></tr>
 		 </table>
 		</span>
-		<span id="red_defender" class="player">{{score.red.defender.name}}</span>
+		<span id="red_defender" class="player">
+		  <a ui-sref="player({id: score.teams[1].players[1].id, year:'all'})">
+		    {{score.teams[1].players[1].fname}} {{score.teams[1].players[1].lname}}
+		  </a>
+		</span>
 		<span id="red_defender_stats" class="stats">
 		 <table class="player_stats">
-		  <tr><td>Partecipazioni</td><td>{{score.red.defender.matches}}</td></tr>
-		  <tr><td>Tempo di gioco</td><td>{{score.red.defender.play_time}}</td></tr>
-		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.red.defender.total_time}}</td></tr>
-		  <tr><td>Gol fatti</td><td>{{score.red.defender.goals}}</td></tr>
-		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.red.defender.total_goals}}</td></tr>
+		  <tr><td>Partecipazioni</td><td>{{score.teams[1].players[1].participations}}</td></tr>
+		  <tr><td>Tempo di gioco</td><td>{{score.teams[1].players[1].played_time | time}}</td></tr>
+		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[1].players[1].total_time | time}}</td></tr>
+		  <tr><td>Gol fatti</td><td>{{score.teams[1].players[1].num_goals}}</td></tr>
+		  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[1].players[1].total_goals}}</td></tr>
 		 </table>
 		</span>
 	</div>
 	
-	<div id="red_team">{{score.red.team}}</div>
+	<div id="red_team">{{score.teams[1].name}}</div>
 
     <div id="debug_div"></div>
     <div id="frames_div"></div>
-    <div id="time" style="display:none"></div>
 
 </div>
 
-<div ng-if="UI == 'classic'" id="classic_interface">
+<div id="classic_interface" ng-show="UI == 'classic' && score.status == 'running'">
 	
-	<div id="team0">{{score.blue.team}}</div>
-	<div id="team1">{{score.red.team}}</div>
+	<div id="team0">{{score.teams[0].name}}</div>
+	<div id="team1">{{score.teams[1].name}}</div>
 	
-	<div id="player00">{{score.blue.attacker.name}}</div>
-	<div id="player01">{{score.blue.defender.name}}</div>
-	<div id="player10">{{score.red.attacker.name}}</div>
-	<div id="player11">{{score.red.defender.name}}</div>
+	<div id="player00">
+	 <a ui-sref="player({id: score.teams[0].players[0].id, year:'all'})">
+      {{score.teams[0].players[0].fname}} {{score.teams[0].players[0].lname}}
+     </a>
+    </div>
+	<div id="player01">
+	 <a ui-sref="player({id: score.teams[0].players[1].id, year:'all'})">
+      {{score.teams[0].players[1].fname}} {{score.teams[0].players[1].lname}}
+     </a>
+    </div>
+	<div id="player10">
+	 <a ui-sref="player({id: score.teams[1].players[0].id, year:'all'})">
+      {{score.teams[1].players[0].fname}} {{score.teams[1].players[0].lname}}
+     </a>
+    </div>
+	<div id="player11">
+	 <a ui-sref="player({id: score.teams[1].players[1].id, year:'all'})">
+      {{score.teams[1].players[1].fname}} {{score.teams[1].players[1].lname}}
+     </a>
+    </div>
 	
 	<div id="player00_stats">
      <table class="player_stats">
-	  <tr><td>Partecipazioni</td><td>{{score.blue.attacker.matches}}</td></tr>
-	  <tr><td>Tempo di gioco</td><td>{{score.blue.attacker.play_time}}</td></tr>
-	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.blue.attacker.total_time}}</td></tr>
-	  <tr><td>Gol fatti</td><td>{{score.blue.attacker.goals}}</td></tr>
-	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.blue.attacker.total_goals}}</td></tr>
+	  <tr><td>Partecipazioni</td><td>{{score.teams[0].players[0].participations}}</td></tr>
+	  <tr><td>Tempo di gioco</td><td>{{score.teams[0].players[0].played_time | time}}</td></tr>
+	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[0].players[0].total_time | time}}</td></tr>
+	  <tr><td>Gol fatti</td><td>{{score.teams[0].players[0].num_goals}}</td></tr>
+	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[0].players[0].total_goals}}</td></tr>
 	 </table>
     </div>
 	<div id="player01_stats">
      <table class="player_stats">
-	  <tr><td>Partecipazioni</td><td>{{score.blue.defender.matches}}</td></tr>
-	  <tr><td>Tempo di gioco</td><td>{{score.blue.defender.play_time}}</td></tr>
-	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.blue.defender.total_time}}</td></tr>
-	  <tr><td>Gol fatti</td><td>{{score.blue.defender.goals}}</td></tr>
-	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.blue.defender.total_goals}}</td></tr>
+	  <tr><td>Partecipazioni</td><td>{{score.teams[0].players[1].participations}}</td></tr>
+	  <tr><td>Tempo di gioco</td><td>{{score.teams[0].players[1].played_time | time}}</td></tr>
+	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[0].players[1].total_time | time}}</td></tr>
+	  <tr><td>Gol fatti</td><td>{{score.teams[0].players[1].num_goals}}</td></tr>
+	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[0].players[1].total_goals}}</td></tr>
 	 </table>
 	</div>
 	<div id="player10_stats">
      <table class="player_stats">
-	  <tr><td>Partecipazioni</td><td>{{score.red.attacker.matches}}</td></tr>
-	  <tr><td>Tempo di gioco</td><td>{{score.red.attacker.play_time}}</td></tr>
-	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.red.attacker.total_time}}</td></tr>
-	  <tr><td>Gol fatti</td><td>{{score.red.attacker.goals}}</td></tr>
-	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.red.attacker.total_goals}}</td></tr>
+	  <tr><td>Partecipazioni</td><td>{{score.teams[1].players[0].participations}}</td></tr>
+	  <tr><td>Tempo di gioco</td><td>{{score.teams[1].players[0].played_time | time}}</td></tr>
+	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[1].players[0].total_time | time}}</td></tr>
+	  <tr><td>Gol fatti</td><td>{{score.teams[1].players[0].num_goals}}</td></tr>
+	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[1].players[0].total_goals}}</td></tr>
 	 </table>
     </div>
 	<div id="player11_stats">
      <table class="player_stats">
-	  <tr><td>Partecipazioni</td><td>{{score.red.defender.matches}}</td></tr>
-	  <tr><td>Tempo di gioco</td><td>{{score.red.defender.play_time}}</td></tr>
-	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.red.defender.total_time}}</td></tr>
-	  <tr><td>Gol fatti</td><td>{{score.red.defender.goals}}</td></tr>
-	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.red.defender.total_goals}}</td></tr>
+	  <tr><td>Partecipazioni</td><td>{{score.teams[1].players[1].participations}}</td></tr>
+	  <tr><td>Tempo di gioco</td><td>{{score.teams[1].players[1].played_time | time}}</td></tr>
+	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[1].players[1].total_time | time}}</td></tr>
+	  <tr><td>Gol fatti</td><td>{{score.teams[1].players[1].num_goals}}</td></tr>
+	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[1].players[1].total_goals}}</td></tr>
 	 </table>
 	</div>
 	
-	<div id="score0">{{score.blue.score}}</div>
-	<div id="score1">{{score.red.score}}</div>
+	<div id="score0">{{score.teams[0].score}}</div>
+	<div id="score1">{{score.teams[1].score}}</div>
 </div>
 
-<div id="countdown24h" >
-
+<div id="countdown24h" ng-if="score.status == 'before'">
+ {{score.time_to_begin | time}}
 </div>
 </box>
 
-<box color="purple" side="right" style="width: 480px" title="Statistiche">
+<box color="purple" side="right" style="width: 480px" title="Statistiche" ng-if="score.status == 'running'">
 <div id="statistics">
 <table>
 <tr>
@@ -210,28 +239,28 @@
 
 <tr>
 <td>Gol totali</td>
-<td>{{score.total_goals}} ({{score.goals_rate}} / min)</td>
+<td>{{score.total_goals}} ({{score.goals_per_minute | round:2}} / min)</td>
 </tr>
 
 <tr>
  <td>Parziale dall'ultimo cambio</td>
  <td>
   <table class="partial">
-  <tr><td>{{score.blue.team}}</td><td>{{score.blue.partial_score}}</td></tr>
-  <tr><td>{{score.red.team}}</td><td>{{score.red.partial_score}}</td></tr></table></td>
+  <tr><td>{{score.teams[0].name}}</td><td>{{score.teams[0].partial_score}}</td></tr>
+  <tr><td>{{score.teams[1].name}}</td><td>{{score.teams[1].partial_score}}</td></tr></table></td>
 </tr>
 
 <tr>
- <td>In campo da</td><td>{{score.partial.time}}</td>
+ <td>In campo da</td><td>{{score.turn_duration | time}}</td>
 </tr>
 
-<tr><td>Indice di rimonta<br />(gol in pi&ugrave; all'ora che devono segnare<br /> i {{score.losing_team}} per recuperare i {{score.winning_team}})</td><td>{{score.goalidx}}</td></tr>
+<tr><td>Indice di rimonta<br />(gol in pi&ugrave; all'ora che devono segnare<br /> i {{score.teams[0].score < score.teams[1].score ? score.teams[0].name : score.teams[1].name}} per recuperare i {{score.teams[0].score > score.teams[1].score ? score.teams[0].name : score.teams[1].name}})</td><td>{{score.remount_index | round:2}}</td></tr>
 
 </table>
 </div>
 </box>
 
-<box color="orange" side="left" style="width: 480px" title="Grafico">
+<box color="orange" side="left" style="width: 480px" title="Grafico" ng-if="score.status == 'running'">
 <div class="toggle">
     <a ng-click="graph = 'full'" ng-class="{active: graph == 'full'}">Dall'inizio</a>
     <a ng-click="graph = 'last'" ng-class="{active: graph == 'last'}">Ultimi 30 minuti</a>

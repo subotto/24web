@@ -273,6 +273,14 @@ table thead {
     -moz-transform: matrix(1,0,0.5,1,0,0);
 }
 
+.header .countdown {
+	margin-top: 14px;
+    text-align: center;
+    transform: matrix(1,0,0.5,1,0,0);
+    -webkit-transform: matrix(1,0,0.5,1,0,0);
+    -moz-transform: matrix(1,0,0.5,1,0,0);
+}
+
 .scoreboard tr {
     background-color: transparent !important;
 }
@@ -524,12 +532,17 @@ iframe.twitter-timeline {
     z-index: 500;
 }
 
-#red_team, #red_attacker, #red_defender, #red_score {
+#red_team, #red_attacker a, #red_defender a, #red_score {
     color: #c00;
 }
 
-#blue_team, #blue_attacker, #blue_defender, #blue_score {
+#blue_team, #blue_attacker a, #blue_defender a, #blue_score {
     color: #00c;
+}
+
+#red_attacker a:hover, #red_defender a:hover,
+#blue_attacker a:hover, #blue_defender a:hover {
+    text-decoration: none;
 }
 
 #blue_attacker_stats, #red_defender_stats {
@@ -703,6 +716,15 @@ iframe.twitter-timeline {
 #player01_stats, #player11_stats {
     top: 340px;
     border-bottom: 2px solid black;
+}
+
+#player00 a:hover, #player01 a:hover,
+#player10 a:hover, #player11 a:hover {
+    text-decoration: none;
+}
+
+#player00 a, #player01 a, #player10 a, #player11 a {
+    color: black;
 }
 
 #score0, #score1 {
