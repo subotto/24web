@@ -82,6 +82,20 @@ angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score'
       return ret;
     }
   })
+  .filter('dtime', function() {
+    return function(time) {
+      if (time == 0) return "0s";
+      var time = Math.floor(time);
+      var hours = Math.floor(time / 3600);
+      var minutes = Math.floor(time/60 - hours*60);
+      var seconds = Math.floor(time - hours*3600 - minutes*60);
+      minutes = minutes + "";
+      if (minutes.length < 2) minutes = "0" + minutes;
+      seconds = seconds + "";
+      if (seconds.length < 2) seconds = "0" + seconds;
+      return hours + ":" + minutes + ":" + seconds;
+    }
+  })
   .filter('round', function() {
     return function(f, p) {
       if (f == "Infinity") return "∞";

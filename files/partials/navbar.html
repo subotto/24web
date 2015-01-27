@@ -15,7 +15,7 @@
           </span>
           <span class="lightblue lightblue-right"></span>
           <span class="scoreboard-background">
-            <table class="scoreboard" ng-if="score.status == 'running'">
+            <table class="scoreboard" ng-if="score.status != 'before'">
               <tr class="bigger">
                 <td class="score score-mat" id="score-0">{{score.teams[0].score}}</td>
                 <td class="scoreboard-separator">:</td>
@@ -29,7 +29,7 @@
             </table>
             <h1 ng-if="score.status == 'before'" class="countdown">
                 {{score.time_to_begin | time}}
-            </td>
+            </h1>
           </span>
         </div>
         <nav class="links links-upper white">

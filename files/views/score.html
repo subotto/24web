@@ -6,7 +6,13 @@
     <a ng-click="UI = 'graphic'" ng-class="{active: UI == 'graphic'}">Visualizzazione avanzata</a>
 </div>
 
-<div ng-show="UI == 'graphic' && score.status == 'running'" id="graphic_interface">
+<div ng-show="UI == 'graphic' && score.status != 'before'" id="graphic_interface">
+    <div class="time_box" ng-show="time == 'elapsed' && score.status != 'ended'">
+        <a ng-click="time = 'left'">{{score.elapsed_time | dtime}}</a>
+    </div>
+    <div class="time_box" ng-show="time == 'left' && score.status != 'ended'">
+        <a ng-click="time = 'elapsed'">-{{-score.time_to_end | dtime}}</a>
+    </div>
 	<div id="blue_team">{{score.teams[0].name}}</div>
 	<div>
 		<span id="blue_attacker" class="player">
@@ -157,8 +163,13 @@
 
 </div>
 
-<div id="classic_interface" ng-show="UI == 'classic' && score.status == 'running'">
-	
+<div id="classic_interface" ng-show="UI == 'classic' && score.status != 'before'">
+    <div class="time_box" ng-show="time == 'elapsed' && score.status != 'ended'">
+        <a ng-click="time = 'left'">{{score.elapsed_time | dtime}}</a>
+    </div>
+    <div class="time_box" ng-show="time == 'left' && score.status != 'ended'">
+        <a ng-click="time = 'elapsed'">-{{-score.time_to_end | dtime}}</a>
+    </div>
 	<div id="team0">{{score.teams[0].name}}</div>
 	<div id="team1">{{score.teams[1].name}}</div>
 	
@@ -229,7 +240,7 @@
 </div>
 </box>
 
-<box color="purple" side="right" style="width: 480px" title="Statistiche" ng-if="score.status == 'running'">
+<box color="purple" side="right" style="width: 480px" title="Statistiche" ng-if="score.status != 'before'">
 <div id="statistics">
 <table>
 <tr>
@@ -256,17 +267,34 @@
 
 <tr><td>Indice di rimonta<br />(gol in pi&ugrave; all'ora che devono segnare<br /> i {{score.teams[0].score < score.teams[1].score ? score.teams[0].name : score.teams[1].name}} per recuperare i {{score.teams[0].score > score.teams[1].score ? score.teams[0].name : score.teams[1].name}})</td><td>{{score.remount_index | round:2}}</td></tr>
 
+ <tr ng-if="score.status != 'ended'">
+  <td>Punteggio stimato a fine partita</td>
+  <td>
+   <table class="partial">
+    <tr><td>{{score.teams[0].name}}</td><td>{{score.teams[0].estimated_score}}</td></tr>
+    <tr><td>{{score.teams[1].name}}</td><td>{{score.teams[1].estimated_score}}</td></tr>
+   </table>
+  </td>
+ </tr>
+ <tr ng-if="score.status != 'ended'">
+  <td>Orario stimato per il {{score.teams[0].interesting_score}}-esimo gol dei {{score.teams[0].name}}</td>
+  <td>{{score.teams[0].linear_projection}}</td>
+ </tr>
+ <tr ng-if="score.status != 'ended'">
+  <td>Orario stimato per il {{score.teams[1].interesting_score}}-esimo gol dei {{score.teams[1].name}}</td>
+  <td>{{score.teams[1].linear_projection}}</td>
+ </tr>
 </table>
 </div>
 </box>
 
-<box color="orange" side="left" style="width: 480px" title="Grafico" ng-if="score.status == 'running'">
+<box color="orange" side="left" style="width: 480px" title="Grafico" ng-if="score.status != 'before'" class="graph">
 <div class="toggle">
     <a ng-click="graph = 'full'" ng-class="{active: graph == 'full'}">Dall'inizio</a>
     <a ng-click="graph = 'last'" ng-class="{active: graph == 'last'}">Ultimi 30 minuti</a>
 </div>
- <linechart data="score_data" options="score_options" mode="" width="450" height="350" style="display: inline;" ng-if="graph == 'full'"></linechart>
- <linechart data="score_last_data" options="score_last_options" mode="" width="450" height="350" style="display: inline;" ng-if="graph == 'last'"></linechart>
+ <linechart data="score_data" options="score_options" mode="" width="450" height="350" ng-if="graph == 'full'"></linechart>
+ <linechart data="score_last_data" options="score_last_options" mode="" width="450" height="350" ng-if="graph == 'last'"></linechart>
 
 </box>
 

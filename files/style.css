@@ -367,7 +367,7 @@ table.scoreboard td {
 .box .box-content {
     padding: 20px;
     padding-top: 40px;
-    /*text-align: justify;*/
+    text-align: justify;
 }
 
 .box-orange .box-header-name, .box-orange .box-header-end {
@@ -487,14 +487,28 @@ iframe.twitter-timeline {
     text-align: center;
 }
 
-/* Live score */
-
-#time_box {
-    text-align: right;
-    font-size: 40px;
-    display: none;
+.graph .chart {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
+/* Live score */
+
+.time_box {
+    position: absolute;
+    right: 0;
+    display: inline-block;
+    font-size: 35px;
+    z-index: 1000;
+}
+
+.time_box a {
+    color: black;
+}
+
+.time_box a:hover {
+    text-decoration: none;
+}
 
 /* Interfaccia nuova */
 
@@ -820,6 +834,13 @@ iframe.twitter-timeline {
 
 #statistics table table tr {
     background: transparent;
+}
+
+#statistics {
+    height: 330px;
+    vertical-align: middle;
+    display: table-cell;
+    width: 480px;
 }
 
 /* Legenda grafici */
