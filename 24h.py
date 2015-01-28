@@ -29,9 +29,9 @@ class SubottoWeb(object):
     def __init__(self):
         try:
             with open("score.json", "r") as f:
-                self.score = json.load(f)
-            except:
-                self.score = {}
+                self.score = f.read()
+        except:
+            self.score = ""
         self.json_time = time.time()
         self.router = Map([
             Rule('/', methods=['GET', 'POST'], endpoint='root'),
@@ -40,6 +40,38 @@ class SubottoWeb(object):
             Rule('/player', methods=['POST'], endpoint='player')
         ], encoding_errors='strict')
         self.init_connection_pool(10)
+        self.scores = {'year': None}
+        gevent.spawn(self.update_scores)
+
+    def update_scores(self):
+        cur = psycopg2.connect(conf.db).cursor()
+        while True:
+            cur.execute("""
+                SELECT year FROM matches
+                WHERE year IS NOT NULL
+                ORDER BY year DESC LIMIT 1;""");
+            year = cur.fetchone()[0]
+            cur.execute("""
+                SELECT EXTRACT(EPOCH FROM timestamp - "begin")::Integer as sec,
+                       teams.name, type FROM events
+                INNER JOIN teams ON teams.id = team_id
+                INNER JOIN matches ON matches.id = match_id
+                WHERE (type = 'goal' or type = 'goal_undo') AND year = %s
+                ORDER BY sec;""", (year,))
+            scores = dict()
+            for event in cur.fetchall():
+                if event[1] not in scores:
+                    scores[event[1]] = []
+                if event[2] == 'goal':
+                    scores[event[1]].append(event[0])
+                elif event[2] == 'goal_undo':
+                    scores[event[1]].pop()
+            for k in scores.iterkeys():
+                for l in xrange(len(scores[k])-1, 0, -1):
+                    scores[k][l] -= scores[k][l-1]
+            self.scores['year'] = year
+            self.scores['data'] = json.dumps(scores, separators=(',', ':'))
+            gevent.sleep(5)
 
     def init_connection_pool(self, size):
         self.connections = []
@@ -64,19 +96,23 @@ class SubottoWeb(object):
             if 'data' not in data:
                 raise BadRequest()
             try:
-                self.score = data['data']
+                self.score = json.dumps(data['data'], separators=(',', ':'))
                 ct = time.time()
                 if ct - self.json_time > 10:
                     self.json_time = ct
                     with open("score.json", "w") as f:
-                        json.dump(self.score, f)
-                    return "OK, status saved"
-                return "OK"
+                        f.write(self.score)
+                    return "\"OK, status saved\""
+                return "\"OK\""
             except:
                 raise InternalServerError()
         elif data['action'] == 'getevents':
-            if 'year' not in data:
+            try:
+                year = int(data['year'])
+            except:
                 raise BadRequest()
+            if year == self.scores['year']:
+                return self.scores['data']
             cur = self.get_cursor()
             cur.execute("""
                 SELECT EXTRACT(EPOCH FROM timestamp - "begin")::Integer as sec,
@@ -96,7 +132,7 @@ class SubottoWeb(object):
             for k in scores.iterkeys():
                 for l in xrange(len(scores[k])-1, 0, -1):
                     scores[k][l] -= scores[k][l-1]
-            return scores
+            return json.dumps(scores, separators=(',', ':'))
         else:
             raise BadRequest()
 
@@ -317,7 +353,7 @@ class SubottoWeb(object):
                 "goals_made": row[6],
                 "goals_taken": row[7]
             })
-        return ret
+        return json.dumps(ret, separators=(',', ':'))
 
     def player_handler(self, data):
         cur = self.get_cursor()
@@ -427,7 +463,7 @@ class SubottoWeb(object):
             ("" if data['year'] == 'all' else "AND matches.year = %s" % yr),
             (data['id'], data['id'], data['id'], data['id']))
         ret['periods'] = map(lambda x: map(lambda y: (y.hour, y.minute), x), cur.fetchall())
-        return ret
+        return json.dumps(ret, separators=(',', ':'))
 
     @responder
     def __call__(self, environ, start_response):
@@ -462,7 +498,7 @@ class SubottoWeb(object):
         response = Response()
         response.mimetype = "application/json"
         response.status_code = 200
-        response.data = json.dumps(data, separators=(',', ':'))
+        response.data = data
         return response
 
 server = gevent.wsgi.WSGIServer(
