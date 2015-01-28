@@ -15,7 +15,6 @@ psycogreen.gevent.patch_psycopg()
 import psycopg2
 import json
 import os
-import time
 from werkzeug.wsgi import SharedDataMiddleware, responder
 from werkzeug.wrappers import Request, Response
 from werkzeug.exceptions import BadRequest, NotFound, Unauthorized, HTTPException, InternalServerError
@@ -32,7 +31,6 @@ class SubottoWeb(object):
                 self.score = f.read()
         except:
             self.score = ""
-        self.json_time = time.time()
         self.router = Map([
             Rule('/', methods=['GET', 'POST'], endpoint='root'),
             Rule('/score', methods=['POST'], endpoint='score'),
@@ -42,6 +40,13 @@ class SubottoWeb(object):
         self.init_connection_pool(10)
         self.scores = {'year': None}
         gevent.spawn(self.update_scores)
+        gevent.spawn(self.save_score)
+
+    def save_score(self):
+        while True:
+            with open("score.json", "w") as f:
+                f.write(self.score)
+            gevent.sleep(10)
 
     def update_scores(self):
         cur = psycopg2.connect(conf.db).cursor()
@@ -97,12 +102,6 @@ class SubottoWeb(object):
                 raise BadRequest()
             try:
                 self.score = json.dumps(data['data'], separators=(',', ':'))
-                ct = time.time()
-                if ct - self.json_time > 10:
-                    self.json_time = ct
-                    with open("score.json", "w") as f:
-                        f.write(self.score)
-                    return "\"OK, status saved\""
                 return "\"OK\""
             except:
                 raise InternalServerError()
