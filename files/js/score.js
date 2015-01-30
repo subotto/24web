@@ -24,7 +24,10 @@ angular.module('24ore.score', [])
   })
   .controller('ScoreCtrl', function($scope, $timeout, $http, scoreManager) {
     var currentYear = 2014;
+    $scope.start_svg = start_svg;
+    $scope.stop_svg = stop_svg;
     $scope.UI = "graphic";
+    start_svg();
     $scope.graph = "full";
     $scope.time = "elapsed";
     $http.post("score", {year: currentYear-1, action: 'getevents'})

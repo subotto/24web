@@ -2,8 +2,8 @@
 <box color="blue" title="24 ore: aggiornamento in tempo reale" >
 
 <div class="toggle" ng-show="score.status == 'running'">
-    <a ng-click="UI = 'classic'" ng-class="{active: UI == 'classic'}">Visualizzazione classica</a>
-    <a ng-click="UI = 'graphic'" ng-class="{active: UI == 'graphic'}">Visualizzazione avanzata</a>
+    <a ng-click="UI = 'classic'; stop_svg()" ng-class="{active: UI == 'classic'}">Visualizzazione classica</a>
+    <a ng-click="UI = 'graphic'; start_svg()" ng-class="{active: UI == 'graphic'}">Visualizzazione avanzata</a>
 </div>
 
 <div ng-show="UI == 'graphic' && score.status != 'before'" id="graphic_interface">
