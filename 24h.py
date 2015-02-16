@@ -35,6 +35,7 @@ class SubottoWeb(object):
             self.score = ""
         self.router = Map([
             Rule('/', methods=['GET', 'POST'], endpoint='root'),
+            Rule('/index.html', methods=['GET', 'POST'], endpoint='root'),
             Rule('/score', methods=['POST'], endpoint='score'),
             Rule('/stats', methods=['POST'], endpoint='stats'),
             Rule('/player', methods=['POST'], endpoint='player'),
@@ -485,7 +486,9 @@ class SubottoWeb(object):
             return Response(data, mimetype='text/html')
 
         if endpoint == 'schedule_redirect':
-            return redirect("#/schedule")
+            resp = redirect("index.html#/schedule")
+            resp.autocorrect_location_header = False
+            return resp
 
         request = Request(environ)
         if request.mimetype != "application/json":
