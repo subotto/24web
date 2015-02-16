@@ -12,6 +12,7 @@ compat.register()
 import psycogreen.gevent
 psycogreen.gevent.patch_psycopg()
 
+
 import psycopg2
 import json
 import os
@@ -86,7 +87,11 @@ class SubottoWeb(object):
             self.connections.append(psycopg2.connect(conf.db))
 
     def get_cursor(self):
-        c = self.connections[self.last_c]
+        try:
+            c = self.connections[self.last_c]
+        except psycopg2.InterfaceError:
+            self.connections[self.last_c] = psycopg2.connect(conf.db)
+            c = self.connections[self.last_c]
         self.last_c = (self.last_c + 1) % self.cp_size
         return c.cursor()
 
