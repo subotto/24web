@@ -170,49 +170,31 @@
     <div class="time_box" ng-show="time == 'left' && score.status != 'ended'">
         <a ng-click="time = 'elapsed'">-{{-score.time_to_end | dtime}}</a>
     </div>
-	<div id="team0">{{score.teams[0].name}}</div>
-	<div id="team1">{{score.teams[1].name}}</div>
+	<div id="team0">{{score.teams[1].name}}</div>
+	<div id="team1">{{score.teams[2].name}}</div>
 	
 	<div id="player00">
-	 <a ui-sref="player({id: score.teams[0].players[0].id, year:'all'})">
-      {{score.teams[0].players[0].fname}} {{score.teams[0].players[0].lname}}
-     </a>
-    </div>
-	<div id="player01">
-	 <a ui-sref="player({id: score.teams[0].players[1].id, year:'all'})">
-      {{score.teams[0].players[1].fname}} {{score.teams[0].players[1].lname}}
-     </a>
-    </div>
-	<div id="player10">
 	 <a ui-sref="player({id: score.teams[1].players[0].id, year:'all'})">
       {{score.teams[1].players[0].fname}} {{score.teams[1].players[0].lname}}
      </a>
     </div>
-	<div id="player11">
+	<div id="player01">
 	 <a ui-sref="player({id: score.teams[1].players[1].id, year:'all'})">
       {{score.teams[1].players[1].fname}} {{score.teams[1].players[1].lname}}
      </a>
     </div>
+	<div id="player10">
+	 <a ui-sref="player({id: score.teams[2].players[0].id, year:'all'})">
+      {{score.teams[2].players[0].fname}} {{score.teams[2].players[0].lname}}
+     </a>
+    </div>
+	<div id="player11">
+	 <a ui-sref="player({id: score.teams[2].players[1].id, year:'all'})">
+      {{score.teams[2].players[1].fname}} {{score.teams[2].players[1].lname}}
+     </a>
+    </div>
 	
 	<div id="player00_stats">
-     <table class="player_stats">
-	  <tr><td>Partecipazioni</td><td>{{score.teams[0].players[0].participations}}</td></tr>
-	  <tr><td>Tempo di gioco</td><td>{{score.teams[0].players[0].played_time | time}}</td></tr>
-	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[0].players[0].total_time | time}}</td></tr>
-	  <tr><td>Gol fatti</td><td>{{score.teams[0].players[0].num_goals}}</td></tr>
-	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[0].players[0].total_goals}}</td></tr>
-	 </table>
-    </div>
-	<div id="player01_stats">
-     <table class="player_stats">
-	  <tr><td>Partecipazioni</td><td>{{score.teams[0].players[1].participations}}</td></tr>
-	  <tr><td>Tempo di gioco</td><td>{{score.teams[0].players[1].played_time | time}}</td></tr>
-	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[0].players[1].total_time | time}}</td></tr>
-	  <tr><td>Gol fatti</td><td>{{score.teams[0].players[1].num_goals}}</td></tr>
-	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[0].players[1].total_goals}}</td></tr>
-	 </table>
-	</div>
-	<div id="player10_stats">
      <table class="player_stats">
 	  <tr><td>Partecipazioni</td><td>{{score.teams[1].players[0].participations}}</td></tr>
 	  <tr><td>Tempo di gioco</td><td>{{score.teams[1].players[0].played_time | time}}</td></tr>
@@ -221,7 +203,7 @@
 	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[1].players[0].total_goals}}</td></tr>
 	 </table>
     </div>
-	<div id="player11_stats">
+	<div id="player01_stats">
      <table class="player_stats">
 	  <tr><td>Partecipazioni</td><td>{{score.teams[1].players[1].participations}}</td></tr>
 	  <tr><td>Tempo di gioco</td><td>{{score.teams[1].players[1].played_time | time}}</td></tr>
@@ -230,9 +212,27 @@
 	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[1].players[1].total_goals}}</td></tr>
 	 </table>
 	</div>
+	<div id="player10_stats">
+     <table class="player_stats">
+	  <tr><td>Partecipazioni</td><td>{{score.teams[2].players[0].participations}}</td></tr>
+	  <tr><td>Tempo di gioco</td><td>{{score.teams[2].players[0].played_time | time}}</td></tr>
+	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[2].players[0].total_time | time}}</td></tr>
+	  <tr><td>Gol fatti</td><td>{{score.teams[2].players[0].num_goals}}</td></tr>
+	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[2].players[0].total_goals}}</td></tr>
+	 </table>
+    </div>
+	<div id="player11_stats">
+     <table class="player_stats">
+	  <tr><td>Partecipazioni</td><td>{{score.teams[2].players[1].participations}}</td></tr>
+	  <tr><td>Tempo di gioco</td><td>{{score.teams[2].players[1].played_time | time}}</td></tr>
+	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[2].players[1].total_time | time}}</td></tr>
+	  <tr><td>Gol fatti</td><td>{{score.teams[1].players[1].num_goals}}</td></tr>
+	  <tr class="all_matches"><td>in tutte le edizioni</td><td>{{score.teams[2].players[1].total_goals}}</td></tr>
+	 </table>
+	</div>
 	
-	<div id="score0">{{score.teams[0].score}}</div>
-	<div id="score1">{{score.teams[1].score}}</div>
+	<div id="score0">{{score.teams[1].score}}</div>
+	<div id="score1">{{score.teams[2].score}}</div>
 </div>
 
 <div id="countdown24h" ng-if="score.status == 'before'">
@@ -257,32 +257,32 @@
  <td>Parziale dall'ultimo cambio</td>
  <td>
   <table class="partial">
-  <tr><td>{{score.teams[0].name}}</td><td>{{score.teams[0].partial_score}}</td></tr>
-  <tr><td>{{score.teams[1].name}}</td><td>{{score.teams[1].partial_score}}</td></tr></table></td>
+  <tr><td>{{score.teams[1].name}}</td><td>{{score.teams[1].partial_score}}</td></tr>
+  <tr><td>{{score.teams[2].name}}</td><td>{{score.teams[2].partial_score}}</td></tr></table></td>
 </tr>
 
 <tr>
  <td>In campo da</td><td>{{score.turn_duration | time}}</td>
 </tr>
 
-<tr><td>Indice di rimonta<br />(gol in pi&ugrave; all'ora che devono segnare<br /> i {{score.teams[0].score < score.teams[1].score ? score.teams[0].name : score.teams[1].name}} per recuperare i {{score.teams[0].score > score.teams[1].score ? score.teams[0].name : score.teams[1].name}})</td><td>{{score.remount_index | round:2}}</td></tr>
+<tr><td>Indice di rimonta<br />(gol in pi&ugrave; all'ora che devono segnare<br /> i {{score.teams[1].score < score.teams[2].score ? score.teams[1].name : score.teams[2].name}} per recuperare i {{score.teams[1].score > score.teams[2].score ? score.teams[1].name : score.teams[2].name}})</td><td>{{score.remount_index | round:2}}</td></tr>
 
  <tr ng-if="score.status != 'ended'">
   <td>Punteggio stimato a fine partita</td>
   <td>
    <table class="partial">
-    <tr><td>{{score.teams[0].name}}</td><td>{{score.teams[0].estimated_score}}</td></tr>
     <tr><td>{{score.teams[1].name}}</td><td>{{score.teams[1].estimated_score}}</td></tr>
+    <tr><td>{{score.teams[2].name}}</td><td>{{score.teams[2].estimated_score}}</td></tr>
    </table>
   </td>
  </tr>
  <tr ng-if="score.status != 'ended'">
-  <td>Orario stimato per il {{score.teams[0].interesting_score}}-esimo gol dei {{score.teams[0].name}}</td>
-  <td>{{score.teams[0].linear_projection}}</td>
- </tr>
- <tr ng-if="score.status != 'ended'">
   <td>Orario stimato per il {{score.teams[1].interesting_score}}-esimo gol dei {{score.teams[1].name}}</td>
   <td>{{score.teams[1].linear_projection}}</td>
+ </tr>
+ <tr ng-if="score.status != 'ended'">
+  <td>Orario stimato per il {{score.teams[2].interesting_score}}-esimo gol dei {{score.teams[2].name}}</td>
+  <td>{{score.teams[2].linear_projection}}</td>
  </tr>
 </table>
 </div>

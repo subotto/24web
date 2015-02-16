@@ -17,14 +17,14 @@
           <span class="scoreboard-background">
             <table class="scoreboard" ng-if="score.status != 'before'">
               <tr class="bigger">
-                <td class="score score-mat" id="score-0">{{score.teams[0].score}}</td>
+                <td class="score score-mat" id="score-0">{{score.teams[1].score}}</td>
                 <td class="scoreboard-separator">:</td>
-                <td class="score score-fis" id="score-1">{{score.teams[1].score}}</td>
+                <td class="score score-fis" id="score-1">{{score.teams[2].score}}</td>
               </tr>
               <tr>
-                <td class="score score-mat" id="team-0">{{score.teams[0].name}}</td>
+                <td class="score score-mat" id="team-0">{{score.teams[1].name}}</td>
                 <td class="scoreboard-separator"></td>
-                <td class="score score-fis" id="team-1">{{score.teams[1].name}}</td>
+                <td class="score score-fis" id="team-1">{{score.teams[2].name}}</td>
               </tr>
             </table>
             <h1 ng-if="score.status == 'before'" class="countdown">

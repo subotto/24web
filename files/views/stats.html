@@ -153,7 +153,7 @@
      <th><a href="" ng-click="update_predicate('players', 'name')">Nome</a></th>
      <th><a href="" ng-click="update_predicate('players', '-play_time')">Tempo di gioco</a></th>
      <th><a href="" ng-click="update_predicate('players', '-goals')">Gol fatti</a></th>
-     <th>Squadra</th>
+     <th><a href="" ng-click="update_predicate('players', '-npart')">Squadra e partecipazioni</a></th>
     </tr>
    </thead>
    <tbody>
@@ -170,7 +170,7 @@
  </div>
 
  <div ng-show="stype == 'individual'">
-  <p>Tutti i partecipanti con almeno {{play_limit | time}} di gioco totali e differenza reti positiva.</p>
+  <p>Tutti i partecipanti con almeno {{play_limit * 60 | time}} di gioco totali e differenza reti positiva.</p>
   <table>
    <colgroup>
     <col width="220">
@@ -193,7 +193,7 @@
      <th><a href="" ng-click="update_predicate('details', '-goals_made/play_time')">GF/minuto</a></th>
      <th><a href="" ng-click="update_predicate('details', 'goals_taken/play_time')">GS/minuto</a></th>
      <th><a href="" ng-click="update_predicate('details', '-(goals_made - goals_taken)/play_time')">Diff/minuto</a></th>
-     <th>Squadra</th>
+     <th><a href="" ng-click="update_predicate('details', '-npart')">Squadra e partecipazioni</a></th>
     </tr>
    </thead>
    <tbody>
@@ -203,9 +203,9 @@
      <td>{{player.goals_made}}</td>
      <td>{{player.goals_taken}}</td>
      <td>{{player.goals_made - player.goals_taken}}</td>
-     <td>{{player.goals_made / player.play_time | round:2}}</td>
-     <td>{{player.goals_taken / player.play_time | round:2}}</td>
-     <td>{{(player.goals_made - player.goals_taken) / player.play_time | round:2}}</td>
+     <td>{{player.goals_made * 60 / player.play_time | round:2}}</td>
+     <td>{{player.goals_taken * 60 / player.play_time | round:2}}</td>
+     <td>{{(player.goals_made - player.goals_taken) * 60 / player.play_time | round:2}}</td>
      <td>
       <div ng-repeat="(t, years) in player.team">{{t}} (<span ng-repeat="y in years | orderBy"><a ui-sref="player({id: player.id, year: y})" >{{y}}</a><span ng-if="!$last">,&nbsp;</span></span>)</div>
      </td>
@@ -246,9 +246,9 @@
      <td>{{player.goals_made}}</td>
      <td>{{player.goals_taken}}</td>
      <td>{{player.goals_made - player.goals_taken}}</td>
-     <td>{{player.goals_made / player.play_time | round:2}}</td>
-     <td>{{player.goals_taken / player.play_time | round:2}}</td>
-     <td>{{(player.goals_made - player.goals_taken) / player.play_time | round:2}}</td>
+     <td>{{player.goals_made * 60 / player.play_time | round:2}}</td>
+     <td>{{player.goals_taken * 60 / player.play_time | round:2}}</td>
+     <td>{{(player.goals_made - player.goals_taken) * 60 / player.play_time | round:2}}</td>
     </tr>
    </tbody>
   </table>

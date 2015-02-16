@@ -39,13 +39,13 @@
           <td>Tempo di gioco:</td><td>{{player.play_time | time}}</td>
          </tr>
          <tr>
-          <td>Gol fatti:</td><td>{{player.goals_made}} ({{player.goals_made / player.play_time | round:2}} / min)</td>
+          <td>Gol fatti:</td><td>{{player.goals_made}} ({{player.goals_made * 60 / player.play_time | round:2}} / min)</td>
          </tr>
          <tr ng-if="player.goals_taken">
-          <td>Gol subiti:</td><td>{{player.goals_taken}} ({{player.goals_taken / player.play_time | round:2}} / min)</td>
+          <td>Gol subiti:</td><td>{{player.goals_taken}} ({{player.goals_taken * 60 / player.play_time | round:2}} / min)</td>
          </tr>
          <tr ng-if="player.goals_taken">
-          <td>Differenza reti:</td><td>{{player.goals_made - player.goals_taken}} ({{(player.goals_made - player.goals_taken)/player.play_time | round:2}} / min)</td>
+          <td>Differenza reti:</td><td>{{player.goals_made - player.goals_taken}} ({{(player.goals_made - player.goals_taken) * 60/player.play_time | round:2}} / min)</td>
          </tr>
 <!--
          <tr ng-if="player.coleader">
@@ -56,7 +56,11 @@
        </p>
       </td>
       <td>
-       <linechart data="hours_data" options="bar_options" mode="" width="520" height="250" style="display: inline;"></linechart>
+       <center>
+        Distribuzione del tempo di gioco nelle diverse ore della giornata
+        <br>
+        <linechart data="hours_data" options="bar_options" mode="" width="520" height="250" style="display: inline;"></linechart>
+       </center>
       </td>
      </tr>
     </table>

@@ -8,6 +8,18 @@ angular.module('24ore.stats', [])
       .success(function(data, status, headers, config) {
         for(var d in data)
           $scope[d] = data[d];
+        for(var i in $scope["players"]) {
+          var tmp = 0;
+          for (var j in $scope["players"][i].team)
+            tmp += $scope["players"][i].team[j].length;
+          $scope["players"][i].npart = tmp;
+        }
+        for(var i in $scope["player_details"]) {
+          var tmp = 0;
+          for (var j in $scope["player_details"][i].team)
+            tmp += $scope["player_details"][i].team[j].length;
+          $scope["player_details"][i].npart = tmp;
+        }
         $scope["goal_data"] = [];
         $scope["player_data"] = [];
         var years = [];
