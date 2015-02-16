@@ -16,6 +16,7 @@ psycogreen.gevent.patch_psycopg()
 import psycopg2
 import json
 import os
+from werkzeug.utils import redirect
 from werkzeug.wsgi import SharedDataMiddleware, responder
 from werkzeug.wrappers import Request, Response
 from werkzeug.exceptions import BadRequest, NotFound, Unauthorized, HTTPException, InternalServerError
@@ -36,7 +37,8 @@ class SubottoWeb(object):
             Rule('/', methods=['GET', 'POST'], endpoint='root'),
             Rule('/score', methods=['POST'], endpoint='score'),
             Rule('/stats', methods=['POST'], endpoint='stats'),
-            Rule('/player', methods=['POST'], endpoint='player')
+            Rule('/player', methods=['POST'], endpoint='player'),
+            Rule('/schedule.php', methods=['GET', 'POST'], endpoint='schedule_redirect')
         ], encoding_errors='strict')
         self.init_connection_pool(10)
         self.scores = {'year': None}
@@ -481,6 +483,9 @@ class SubottoWeb(object):
             with open(os.path.join(file_path, "index.html"), "r") as f:
                 data = f.read()
             return Response(data, mimetype='text/html')
+
+        if endpoint == 'schedule_redirect':
+            return redirect("#/schedule")
 
         request = Request(environ)
         if request.mimetype != "application/json":
