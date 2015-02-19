@@ -5,14 +5,14 @@
     <a ng-click="quality = 'low'" ng-class="{active: quality == 'low'}">Bassa qualità</a>
    </div>
 
-  <center ng-if="quality == 'low'">
-   <video id="my_video_1" class="video-js vjs-default-skin" width="800" height="450" controls preload="auto" poster="files/images/subotto2.jpg" data-setup="{}">
+  <center ng-show="quality == 'low'">
+   <video id="my_video_1" class="video-js vjs-default-skin" width="800" height="600" controls preload="auto" poster="files/images/subotto2.jpg" data-setup="{}">
     <source src="http://soyuz.sns.it:8001/low" type="video/x-flv">
    </video>
   </center>
 
-  <center ng-if="quality == 'hi'">
-   <video id="my_video_1" class="video-js vjs-default-skin" width="800" height="450" controls preload="auto" poster="files/images/subotto2.jpg" data-setup="{}">
+  <center ng-show="quality == 'hi'">
+   <video id="my_video_2" class="video-js vjs-default-skin" width="800" height="600" controls preload="auto" poster="files/images/subotto2.jpg" data-setup="{}">
     <source src="http://soyuz.sns.it:8000/hi" type="video/x-flv">
    </video>
   </center>
