@@ -23,7 +23,7 @@ angular.module('24ore.score', [])
     return $window.scoreData;
   })
   .controller('ScoreCtrl', function($scope, $timeout, $http, scoreManager) {
-    var currentYear = 2014;
+    var currentYear = 2015;
     $scope.start_svg = start_svg;
     $scope.stop_svg = stop_svg;
     $scope.UI = "graphic";
@@ -33,6 +33,7 @@ angular.module('24ore.score', [])
     $http.post("score", {year: currentYear-1, action: 'getevents'})
       .success(function(data, status, headers, config) {
         $scope.olddata = data;
+        graphUpdate();
       })
       .error(function(data, status, headers, config) {
         console.log("Error!");
@@ -47,8 +48,6 @@ angular.module('24ore.score', [])
           $scope.score_last_data = [];
           var time_max = 0;
           var score = {};
-          for (var team in $scope.olddata)
-            data[team + " (old)"] = $scope.olddata[team].slice();
           for (var team in data) {
             score[team] = 0;
             for (var i=1; i<data[team].length; i++) {
@@ -56,6 +55,15 @@ angular.module('24ore.score', [])
               time_max = time_max > data[team][i]? time_max : data[team][i];
             }
           }
+          for (var team in $scope.olddata) {
+            data[team + " (old)"] = $scope.olddata[team].slice();
+            team = team + " (old)";
+            score[team] = 0;
+            for (var i=1; i<data[team].length; i++) {
+              data[team][i] += data[team][i-1];
+            }
+          }
+          console.log(time_max)
           var step = Math.ceil(time_max/400);
           for (var time = 0; time < time_max; time += step) {
             for (var team in data) {
@@ -75,22 +83,34 @@ angular.module('24ore.score', [])
           $scope.score_data.push(point);
           $scope.score_last_data.push(point);
           $scope.score_options.axes.x.ticks = [0];
-          for (var i=0; i<time_max; i+= 7200)
-            $scope.score_options.axes.x.ticks.push(i+7200);
+          var nsteps = 10
+          for (var i=0; i<nsteps; i++)
+            $scope.score_options.axes.x.ticks.push((i+1)*time_max/nsteps);
       })
       .error(function(data, status, headers, config) {
         console.log("Error!");
       })
     }
-    graphUpdate();
+    var _time = function(time) {
+      if (time == 0) return "0";
+      var time = Math.floor(time);
+      var hours = Math.floor(time / 3600);
+      var minutes = Math.floor(time/60 - hours*60);
+      var seconds = Math.floor(time - hours*3600 - minutes*60);
+      var v1 = "" + hours;
+      var v2 = "" + minutes;
+      if (v1.length < 2) v1 = "0" + v1;
+      if (v2.length < 2) v2 = "0" + v2;
+      return v1 + ":" + v2;
+    }
+
+//    graphUpdate();
     $scope.score_data = [];
     $scope.score_last_data = [];
     $scope.score_options = {
       axes: {
         x: {
-          labelFunction: function (x) {
-            return Math.floor(x/3600);
-          }
+          labelFunction: _time
         },
         y: {
           labelFunction: function (x) {return "" + x}
@@ -127,12 +147,7 @@ angular.module('24ore.score', [])
     $scope.score_last_options = {
       axes: {
         x: {
-          labelFunction: function (x) {
-            x = Math.floor(x/60);
-            var hours = Math.floor(x/60);
-            var minutes = x - hours*60;
-            return hours + ":" + minutes; 
-          }
+          labelFunction: _time
         },
         y: {
           labelFunction: function (x) {return "" + x}
