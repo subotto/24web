@@ -53,8 +53,8 @@ class SubottoWeb(object):
             gevent.sleep(10)
 
     def update_scores(self):
-        cur = psycopg2.connect(conf.db).cursor()
         while True:
+            cur = psycopg2.connect(conf.db).cursor()
             cur.execute("""
                 SELECT year FROM matches
                 WHERE year IS NOT NULL

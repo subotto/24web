@@ -63,7 +63,6 @@ angular.module('24ore.score', [])
               data[team][i] += data[team][i-1];
             }
           }
-          console.log(time_max)
           var step = Math.ceil(time_max/400);
           for (var time = 0; time < time_max; time += step) {
             for (var team in data) {

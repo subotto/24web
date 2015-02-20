@@ -11,7 +11,7 @@
         <a ng-click="time = 'left'">{{score.elapsed_time | dtime}}</a>
     </div>
     <div class="time_box" ng-show="time == 'left' && score.status != 'ended'">
-        <a ng-click="time = 'elapsed'">-{{-score.time_to_end | dtime}}</a>
+        <a ng-click="time = 'elapsed'">-{{score.time_to_end | dtime}}</a>
     </div>
 	<div id="blue_team">{{score.teams['blue'].name}}</div>
 	<div>
@@ -168,7 +168,7 @@
         <a ng-click="time = 'left'">{{score.elapsed_time | dtime}}</a>
     </div>
     <div class="time_box" ng-show="time == 'left' && score.status != 'ended'">
-        <a ng-click="time = 'elapsed'">-{{-score.time_to_end | dtime}}</a>
+        <a ng-click="time = 'elapsed'">-{{score.time_to_end | dtime}}</a>
     </div>
 	<div id="team0">{{score.teams[1].name}}</div>
 	<div id="team1">{{score.teams[2].name}}</div>
