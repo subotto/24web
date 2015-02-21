@@ -27,7 +27,7 @@ angular.module('24ore.score', [])
     $scope.start_svg = start_svg;
     $scope.stop_svg = stop_svg;
     $scope.UI = "graphic";
-    start_svg();
+    $timeout(init_field, 400);
     $scope.graph = "full";
     $scope.time = "elapsed";
     $http.post("score", {year: currentYear-1, action: 'getevents'})
