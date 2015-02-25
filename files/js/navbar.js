@@ -18,11 +18,12 @@ angular.module('24ore.navbar', ['24ore.score'])
       "overview": [],
       "stats": [
         ["Statistiche generali", "stats({year: 'all'})"],
-        ["Edizione 2010", "stats({year: 2010})"],
-        ["Edizione 2011", "stats({year: 2011})"],
-        ["Edizione 2012", "stats({year: 2012})"],
-        ["Edizione 2013", "stats({year: 2013})"],
-        ["Edizione 2014", "stats({year: 2014})"]
+        ["2010", "stats({year: 2010})"],
+        ["2011", "stats({year: 2011})"],
+        ["2012", "stats({year: 2012})"],
+        ["2013", "stats({year: 2013})"],
+        ["2014", "stats({year: 2014})"],
+        ["2015", "stats({year: 2015})"]
       ],
       "trailer": [],
       "24h": [

@@ -253,7 +253,7 @@ class SubottoWeb(object):
                     GROUP BY matches.year;""", (i, i))
                 for row in cur.fetchall():
                     res["participations"][row[0]]["goals"] = row[1]
-                # Numero di partecipanti per anno
+		# Numero di partecipanti per anno
                 cur.execute("""
                     SELECT year, COUNT(player_id) FROM (
                         SELECT DISTINCT matches.year, player_id
@@ -373,11 +373,9 @@ class SubottoWeb(object):
                 SELECT players.id, fname, lname,
                        year, teams.name, pos_goals, neg_goals, seconds
                 FROM players
-                INNER JOIN player_matches ON players.id = player_matches.player_id
+                INNER JOIN stats_player_matches ON players.id = stats_player_matches.player_id
                 INNER JOIN matches ON match_id = matches.id
                 INNER JOIN teams ON teams.id = team_id
-                INNER JOIN stats_player_matches ON players.id = stats_player_matches.player_id
-                                                AND matches.id = stats_player_matches.match_id
                 WHERE year IS NOT NULL AND players.id = %s;""", (data["id"],))
             res = cur.fetchall()
             if len(data) == 0:
