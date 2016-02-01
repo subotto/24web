@@ -478,7 +478,11 @@ var frame_picker = {
     }
 };
 
-    function receive_frames(response) {
+function receive_frames(response) {
+    if (response.data.length == 0) {
+        updating_frames = false;
+        return;
+    }
         ref_time = performance.now();
 
         if (FPS != response.fps) {
