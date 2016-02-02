@@ -22,7 +22,9 @@ angular.module('24ore.navbar', ['24ore.score'])
         ["Edizione 2011", "stats({year: 2011})"],
         ["Edizione 2012", "stats({year: 2012})"],
         ["Edizione 2013", "stats({year: 2013})"],
-        ["Edizione 2014", "stats({year: 2014})"]
+        ["Edizione 2014", "stats({year: 2014})"],
+        ["Edizione 2015", "stats({year: 2015})"],
+        ["Edizione 2016", "stats({year: 2016})"]
       ],
       "trailer": [],
       "24h": [
