@@ -7,10 +7,15 @@ import gevent.wsgi
 
 gevent.monkey.patch_all()
 
-from psycopg2cffi import compat
-compat.register()
-import psycogreen.gevent
-psycogreen.gevent.patch_psycopg()
+try:
+    from psycopg2cffi import compat
+    compat.register()
+# psycopg2cffi is needed only for pypy
+except ImportError:
+    pass
+
+import psycogreen_gevent
+psycogreen_gevent.patch_psycopg()
 
 
 import psycopg2
