@@ -520,7 +520,7 @@ class SubottoWeb(object):
         return response
 
 server = gevent.wsgi.WSGIServer(
-    ("127.0.0.1", 8080),
+    (conf.listen_addr, conf.listen_port),
     SharedDataMiddleware(SubottoWeb(), {'/files': file_path})
 )
 server.serve_forever()
