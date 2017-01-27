@@ -24,7 +24,8 @@ angular.module('24ore.navbar', ['24ore.score'])
         ["2013", "stats({year: 2013})"],
         ["2014", "stats({year: 2014})"],
         ["2015", "stats({year: 2015})"],
-        ["2016", "stats({year: 2016})"]
+        ["2016", "stats({year: 2016})"],
+        ["2017", "stats({year: 2017})"]
       ],
       "trailer": [],
       "24h": [
