@@ -23,10 +23,10 @@ angular.module('24ore.score', [])
     return $window.scoreData;
   })
   .controller('ScoreCtrl', function($scope, $timeout, $http, scoreManager) {
-    var currentYear = 2017;
+    var currentYear = 2018;
     $scope.start_svg = start_svg;
     $scope.stop_svg = stop_svg;
-    $scope.UI = "graphic";
+    $scope.UI = "classic";
     $timeout(init_field, 400);
     $scope.graph = "full";
     $scope.time = "elapsed";
@@ -41,7 +41,7 @@ angular.module('24ore.score', [])
     $scope.score = scoreManager;
     var graphUpdate = function() {
       // Una volta ogni 10s
-      $timeout(graphUpdate, 10000); 
+      $timeout(graphUpdate, 10000);
       $http.post("score", {year: currentYear, action: 'getevents'})
       .success(function(data, status, headers, config) {
           $scope.score_data = [];
@@ -139,7 +139,7 @@ angular.module('24ore.score', [])
             x = Math.floor(x/60);
             var hours = Math.floor(x/60);
             var minutes = x - hours*60;
-            return series.y + " " + hours + ":" + minutes + " - " + y; 
+            return series.y + " " + hours + ":" + minutes + " - " + y;
         }
       }
     };
@@ -166,7 +166,7 @@ angular.module('24ore.score', [])
             x = Math.floor(x/60);
             var hours = Math.floor(x/60);
             var minutes = x - hours*60;
-            return series.y + " " + hours + ":" + minutes + " - " + y; 
+            return series.y + " " + hours + ":" + minutes + " - " + y;
         }
       }
     };
