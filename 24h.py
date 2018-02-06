@@ -307,7 +307,7 @@ class SubottoWeb(object):
                     WHERE (fname != '??' OR lname != '??') %s
                     GROUP BY players.id, fname, lname
                 ) AS temp
-                WHERE pg > ng AND s > %%s;""" %
+                WHERE s > %%s;""" %
                 ("" if match_id is None else ("AND match_id = %s" % match_id)),
                 (ret["play_limit"]*60,))
             ret["player_details"] = []
@@ -343,7 +343,7 @@ class SubottoWeb(object):
                         FROM stats_turns
                         UNION
                         SELECT p10_id as p0_id, p11_id as p1_id,
-                               score_b as pos_score, score_b as neg_score,
+                               score_a as pos_score, score_b as neg_score,
                                EXTRACT(EPOCH FROM "end" - "begin")::Integer as seconds,
                                match_id
                         FROM stats_turns
@@ -353,7 +353,6 @@ class SubottoWeb(object):
                 ) AS temp
                 INNER JOIN players as p0 on p0.id = p0_id
                 INNER JOIN players as p1 on p1.id = p1_id
-                WHERE pos_score > neg_score
                 ORDER BY seconds DESC
                 LIMIT 60;""" % ("" if match_id is None else
                 ("WHERE match_id = %s" % match_id)))
