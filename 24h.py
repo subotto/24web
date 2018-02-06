@@ -343,7 +343,7 @@ class SubottoWeb(object):
                         FROM stats_turns
                         UNION
                         SELECT p10_id as p0_id, p11_id as p1_id,
-                               score_a as pos_score, score_b as neg_score,
+                               score_b as pos_score, score_a as neg_score,
                                EXTRACT(EPOCH FROM "end" - "begin")::Integer as seconds,
                                match_id
                         FROM stats_turns
