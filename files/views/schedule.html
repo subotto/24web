@@ -1,55 +1,67 @@
-<style>
-.black-card {
-    color: black;
-}
-
-.red-card {
-    color: red;
-}
-
-.card-pair {
-    text-align: center;
-}
-
-</style>
-
 <div class="container" >
 
-<box color="blue" title="Turni della 24 ore 2017">
+<box color="blue" title="Turni della 24 ore 2018">
 <!--<p><b>I turni non sono ancora definitivi, e potrebbero subire variazioni.</b></p>-->
 <table id="tabella">
-<thead>
-<tr><th>Orario</th><th colspan="2">Matematici</th><th colspan="2">Fisici</th></tr>
-</thead>
-<tbody>
-<tr><td>08:00 - 08:25</td><td>Lorenzo Beretta, Francesco Ballini</td><td class="card-pair"><span class="red-card">&#x1F0C3;</span> <span class="black-card">&#x1F0D2;</span></td><td>Pietro Novelli, Paolo Erdman</td><td class="card-pair"><span class="red-card">&#x1f0b3;</span> <span class="black-card">&#x1f0a3;</span></td></tr>
-<tr><td>08:25 - 08:55</td><td>Luca Francone, Francesco Zigliotto</td><td class="card-pair"><span class="red-card">&#x1F0C6;</span> <span class="black-card">&#x1F0A8;</span></td><td>Massimo Bilancioni, Bruno Bucciotti</td><td class="card-pair"><span class="black-card">&#x1f0a4;</span> <span class="black-card">&#x1f0d8;</span></td></tr>
-<tr><td>08:55 - 09:25</td><td>Filippo Baroni, Giacomo Hermes Ferraro</td><td class="card-pair"><span class="red-card">&#x1F0B7;</span> <span class="red-card">&#x1F0CE;</span></td><td>Marco Eterno, Alessandro Foligno</td><td class="card-pair"><span class="red-card">&#x1f0b5;</span> <span class="black-card">&#x1f0a1;</span></td></tr>
-<tr><td>09:25 - 09:55</td><td>Luca Macchiaroli, Flavio Ascari</td><td class="card-pair"><span class="black-card">&#x1F0A2;</span> <span class="red-card">&#x1F0C1;</span></td><td>Enrico Negri, Guido Narduzzi</td><td class="card-pair"><span class="black-card">&#x1f0d9;</span> <span class="black-card">&#x1f0d3;</span></td></tr>
-<tr><td>09:55 - 10:20</td><td>Cristoforo Caffi, Federico Conti</td><td class="card-pair"><span class="red-card">&#x1F0B9;</span> <span class="red-card">&#x1F0B6;</span></td><td>Pietro Pelliconi, Alessandro Passera</td><td class="card-pair"><span class="red-card">&#x1f0c5;</span> <span class="black-card">&#x1f0d6;</span></td></tr>
-<tr><td>10:20 - 10:45</td><td>Clara Antonucci, Nicola Picenni</td><td class="card-pair"><span class="black-card">&#x1F0AD;</span> <span class="black-card">&#x1F0D3;</span></td><td>Pietro Ferrero, Filippo Revello</td><td class="card-pair"><span class="red-card">&#x1f0be;</span> <span class="red-card">&#x1f0b4;</span></td></tr>
-<tr><td>10:45 - 11:15</td><td>Nicola Ottolini, Filippo Quattrocchi</td><td class="card-pair"><span class="black-card">&#x1f0d8;</span> <span class="red-card">&#x1f0b4;</span></td><td>Federico Visintini, Pasquale Miglionico</td><td class="card-pair"><span class="red-card">&#x1f0b6;</span> <span class="red-card">&#x1f0c6;</span></td></tr>
-<tr><td>11:15 - 11:40</td><td>Giovanni Mascellani, Luigi Pagano</td><td class="card-pair"><span class="black-card">&#x1f0da;</span> <span class="black-card">&#x1f0db;</span></td><td>Alexia Tiberi, Cristina Bellotti</td><td class="card-pair"><span class="red-card">&#x1f0bd;</span> <span class="black-card">&#x1f0ad;</span></td></tr>
-<tr><td>11:40 - 12:10</td><td>Edoardo Siniscalco, Lorenzo Furio</td><td class="card-pair"><span class="red-card">&#x1f0c5;</span> <span class="black-card">&#x1f0d5;</span></td><td>Paolo Tognini, Elia Pizzati</td><td class="card-pair"><span class="black-card">&#x1f0a5;</span> <span class="red-card">&#x1f0c3;</span></td></tr>
-<tr><td>12:10 - 12:40</td><td>Davide Gori, Andrea Gallese</td><td class="card-pair"><span class="black-card">&#x1f0d1;</span> <span class="black-card">&#x1f0d6;</span></td><td>Lorenzo Breschi, Rosario Riso</td><td class="card-pair"><span class="black-card">&#x1f0de;</span> <span class="red-card">&#x1f0b2;</span></td></tr>
-<tr><td>12:40 - 13:05</td><td>Riccardo Zanotto, Igor Simunec</td><td class="card-pair"><span class="red-card">&#x1f0b8;</span> <span class="red-card">&#x1f0c2;</span></td><td>Salvatore Raucci, Nico Kleijne</td><td class="card-pair"><span class="black-card">&#x1f0d7;</span> <span class="red-card">&#x1f0c2;</span></td></tr>
-<tr><td>13:05 - 13:35</td><td>Francesco Milizia, Davide Carazzato</td><td class="card-pair"><span class="red-card">&#x1f0cb;</span> <span class="red-card">&#x1f0bb;</span></td><td>Gianmaria Tomaselli, Ludovico Tesser</td><td class="card-pair"><span class="red-card">&#x1F0CF;</span> <span class="red-card">&#x1f0c7;</span></td></tr>
-<tr><td>13:35 - 14:00</td><td>Guglielmo Nocera, Giada Franz</td><td class="card-pair"><span class="black-card">&#x1f0d4;</span> <span class="red-card">&#x1f0bd;</span></td><td>Paolo Abiuso, Salvatore Bottaro</td><td class="card-pair"><span class="black-card">&#x1f0d1;</span> <span class="red-card">&#x1f0c8;</span></td></tr>
-<tr><td>14:00 - 14:30</td><td>Andrea Egidio Monti, Luca Casarin</td><td class="card-pair"><span class="black-card">&#x1f0a3;</span> <span class="black-card">&#x1f0a6;</span></td><td>Matteo Becchi, Michele Fava</td><td class="card-pair"><span class="red-card">&#x1f0c4;</span> <span class="black-card">&#x1f0d4;</span></td></tr>
-<tr><td>14:30 - 14:55</td><td>Claudio Afeltra, Gianluca Tasinato</td><td class="card-pair"><span class="red-card">&#x1f0be;</span> <span class="red-card">&#x1f0b1;</span></td><td>Alessandro De Laurentis, Federico Figura</td><td class="card-pair"><span class="black-card">&#x1f0d2;</span> <span class="red-card">&#x1f0ce;</span></td></tr>
-<tr><td>14:55 - 15:20</td><td>Marco Barberis, Daniele Semola</td><td class="card-pair"><span class="red-card">&#x1f0c9;</span> <span class="black-card">&#x1f0a9;</span></td><td>Simone Biasco, Vasco Cavina</td><td class="card-pair"><span class="black-card">&#x1f0a2;</span> <span class="black-card">&#x1f0ae;</span></td></tr>
-<tr><td>15:20 - 15:45</td><td>Filippo Baroni, Marco Miani</td><td class="card-pair"><span class="red-card">&#x1F0B7;</span> <span class="black-card">&#x1f0aa;</span></td><td>Enio Mangiacotti, Fabio Zoratti</td><td class="card-pair"><span class="red-card">&#x1f0b8;</span> <span class="black-card">&#x1f0a6;</span></td></tr>
-<tr><td>15:45 - 16:10</td><td>Federico Scavia, Matteo Verzobio</td><td class="card-pair"><span class="black-card">&#x1f0a5;</span> <span class="black-card">&#x1f0d9;</span></td><td>Davide Burgio, Gabriele Pulvirenti</td><td class="card-pair"><span class="black-card">&#x1f0da;</span> <span class="black-card">&#x1f0aa;</span></td></tr>
-<tr><td>16:10 - 16:35</td><td>Giovanni Barbarino, Roberto Pagaria</td><td class="card-pair"><span class="black-card">&#x1f0de;</span> <span class="red-card">&#x1f0ba;</span></td><td>Simone Bombari, Matteo Colanero</td><td class="card-pair"><span class="red-card">&#x1f0b9;</span> <span class="black-card">&#x1f0a9;</span></td></tr>
-<tr><td>16:35 - 17:00</td><td>Marco Trevisiol, Giovanni Paolini</td><td class="card-pair"><span class="black-card">&#x1f0ab;</span> <span class="black-card">&#x1f0ae;</span></td><td>Dario Ascari, Giacomo Petrillo</td><td class="card-pair"><span class="red-card">&#x1f0c1;</span> <span class="black-card">&#x1f0db;</span></td></tr>
-<tr><td>17:00 - 17:25</td><td>Ugo Bindini, Alessandro Iraci</td><td class="card-pair"><span class="red-card">&#x1f0c7;</span> <span class="black-card">&#x1f0a7;</span></td><td>Alessandro Candido, Andrea Luzio</td><td class="card-pair"><span class="red-card">&#x1f0bb;</span> <span class="black-card">&#x1F0DF;</span></td></tr>
-<tr><td>17:25 - 17:50</td><td>Manuele Cusumano, Matteo Migliorini</td><td class="card-pair"><span class="red-card">&#x1F0CF;</span> <span class="black-card">&#x1f0a1;</span></td><td>Piero Lafiosca, Valerio Lomanto</td><td class="card-pair"><span class="red-card">&#x1f0ba;</span> <span class="black-card">&#x1f0a7;</span></td></tr>
-<tr><td>17:50 - 18:15</td><td>Alessandra Caraceni, Emanuele Tron</td><td class="card-pair"><span class="red-card">&#x1f0cd;</span> <span class="black-card">&#x1f0a4;</span></td><td>Tommaso Pajero, Michael J. Morello</td><td class="card-pair"><span class="red-card">&#x1f0c9;</span> <span class="red-card">&#x1f0cb;</span></td></tr>
-<tr><td>18:15 - 18:40</td><td>Andrea Parma, Lorenzo Benedini</td><td class="card-pair"><span class="red-card">&#x1f0b2;</span> <span class="red-card">&#x1f0b3;</span></td><td>Alberto Bordin, Roberto Ribatti</td><td class="card-pair"><span class="red-card">&#x1f0b1;</span> <span class="red-card">&#x1f0b7;</span></td></tr>
-<tr><td>18:40 - 19:10</td><td>Emanuele Campeotto, Edoardo Rizzi</td><td class="card-pair"><span class="red-card">&#x1f0c8;</span> <span class="black-card">&#x1f0d7;</span></td><td>Edoardo Maria Centamori, Giuseppe Bogna</td><td class="card-pair"><span class="red-card">&#x1f0ca;</span> <span class="black-card">&#x1f0d5;</span></td></tr>
-<tr><td>19:10 - 19:35</td><td>Ludovico Pernazza, Giovanni Italiano</td><td class="card-pair"><span class="black-card">&#x1F0DF;</span> <span class="red-card">&#x1f0ca;</span></td><td>Federica Surace, Caterina Baldassarre</td><td class="card-pair"><span class="black-card">&#x1f0dd;</span> <span class="red-card">&#x1f0cd;</span></td></tr>
-<tr><td>19:35 - 20:00</td><td>Davide Lofano, Alice Cortinovis</td><td class="card-pair"><span class="red-card">&#x1f0c4;</span> <span class="black-card">&#x1f0dd;</span></td><td>Alessandro Podo, Emanuele Penocchio</td><td class="card-pair"><span class="black-card">&#x1f0a8;</span> <span class="black-card">&#x1f0ab;</span></td></tr>
-</tbody>
+	<thead>
+		<tr><th>Orario</th><th>Matematici</th><th>Fisici</th></tr>
+	</thead>
+	<tbody>
+		<tr><td>8:00</td><td>Ludovico Pernazza, Francesco Milizia</td><td>Lorenzo Breschi, Matteo Colanero</td></tr>
+		
+		<tr><td>8:30</td><td rowspan="3">Lorenzo Demeio, Giacomo Colombo</td><td rowspan="2">Sveva Sodomaco, Patrizia Mazzeo</td></tr>
+		<tr></tr>
+		<tr><td>8:50</td><td rowspan="2">Marco Malandrone, Tiziano Poropat</td></tr>
+		<tr><td>9:00</td><td rowspan="3">Lorenzo Furio, Jacopo Chen</td></tr>
+		<tr><td>9:10</td><td rowspan="2">Elia Pizzati, Federico Visintini</td></tr>
+		<tr></tr>
+		
+		<tr><td>9:30</td><td>Matteo Nesi, Lorenzo Bresolin</td><td>Veronica Sacchi, Valerio Lomanto, Alessandro Piazza</td></tr>
+		<tr><td>10:00</td><td>Flavio Ascari, Filippo Baroni</td><td>Pasquale Miglionico, Enrico Negri</td></tr>
+		
+		<tr><td>10:30</td><td rowspan="3">Nikita Deniskin, Alessandro Trenta</td><td rowspan="2">Marianna Crupi, Andrea Ortone</td></tr>
+		<tr></tr>
+		<tr><td>10:50</td><td rowspan="2">Luca Arnaboldi, Alessandro Falco</td></tr>
+		<tr><td>11:00</td><td rowspan="3">Emanuele Tron, Andrea Ulliana</td></tr>
+		<tr><td>11:10</td><td rowspan="2">Jacopo Joy Colombini, Ferdinando Maieron</td></tr>
+		<tr></tr>
+		
+		<tr><td>11:30</td><td>Giovanni Italiano, Francesco Zigliotto</td><td>Giuseppe Bogna, Paolo Tognini</td></tr>
+		
+		<tr><td>12:00</td><td rowspan="3">Aleksandra Baranova, Francesco Giancane</td><td rowspan="2">Alberto Casali, Daniele Assenza</td></tr>
+		<tr></tr>
+		<tr><td>12:20</td><td rowspan="2">Fabio Di Mascia, Luca Basta</td></tr>
+		<tr><td>12:30</td><td rowspan="3">Giacomo Hermes Ferraro, Andrea Monti</td></tr>
+		<tr><td>12:40</td><td rowspan="2">Bibek Bhandari, Gianmichele Blasi</td></tr>
+		<tr></tr>
+		
+		<tr><td>13:00</td><td rowspan="3">Giulio Rovellini, Claudio Afeltra</td><td rowspan="2">Pietro Novelli, Paolo Erdman</td></tr>
+		<tr></tr>
+		<tr><td>13:20</td><td rowspan="2">Davide Napoli, Piero Lafiosca</td></tr>
+		<tr><td>13:30</td><td rowspan="3">Nicola Picenni, Clara Antonucci</td></tr>
+		<tr><td>13:40</td><td rowspan="2">Alessandro Passera, Salvatore Raucci</td></tr>
+		<tr></tr>		
+		
+		<tr><td>14:00</td><td>Giada Franz, Federico Glaudo</td><td>Salvatore Bottaro, Paolo Abiuso</td></tr>
+		<tr><td>14:30</td><td>Roberto Pagaria, Bruno Martelli</td><td>Vasco Cavina, Simone Biasco</td></tr>
+		<tr><td>15:00</td><td>Marco Miani, Dario Rancati</td><td>Rosario Riso, Enio Mangiacotti</td></tr>
+		<tr><td>15:30</td><td>Giovanni Paolini, Marco Trevisiol</td><td>Roberto Ribatti, Massimo Bilancioni</td></tr>
+		<tr><td>16:00</td><td>Alessandro Iraci, Ugo Bindini</td><td>Bruno Bucciotti, Edoardo Centamori</td></tr>
+		<tr><td>16:30</td><td>Andrea Gallese, Edoardo Rizzi</td><td>Gianmaria Tomaselli, Alberto Bordin</td></tr>
+		<tr><td>17:00</td><td>Riccardo Zanotto, Davide Gori</td><td>Dario Ascari, Giacomo Petrillo</td></tr>
+		
+		<tr><td>17:30</td><td rowspan="3">Mattia Maculan, Dario Mercalli</td><td rowspan="2">Cristina Bellotti, Louis Ponet</td></tr>
+		<tr></tr>
+		<tr><td>17:50</td><td rowspan="2">Michael J. Morello, Stefano Cusumano</td></tr>
+		<tr><td>18:00</td><td rowspan="3">Francesco Ballini, Guglielmo Nocera</td></tr>
+		<tr><td>18:10</td><td rowspan="2">Guido Narduzzi, Marco Costa</td></tr>
+		<tr></tr>		
+			
+		<tr><td>18:30</td><td>Lorenzo Benedini, Davide Lofano</td><td>Alessandro Foligno, Marco Eterno</td></tr>
+		<tr><td>19:00</td><td>Davide Lombardo, Andrea Parma</td><td>Andrea Luzio, Alessandro Candido</td></tr>
+		<tr><td>19:30</td><td>Matteo Migliorini, Manuele Cusumano</td><td>Gabriele Pulvirenti, Davide Burgio</td></tr>
+		
+	</tbody>
 </table>
 </box>
 
