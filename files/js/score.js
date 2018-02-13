@@ -26,7 +26,7 @@ angular.module('24ore.score', [])
     var currentYear = 2018;
     $scope.start_svg = start_svg;
     $scope.stop_svg = stop_svg;
-    $scope.UI = "classic";
+    $scope.UI = "graphic";
     $timeout(init_field, 400);
     $scope.graph = "full";
     $scope.time = "elapsed";
