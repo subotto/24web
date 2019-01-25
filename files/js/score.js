@@ -23,7 +23,7 @@ angular.module('24ore.score', [])
     return $window.scoreData;
   })
   .controller('ScoreCtrl', function($scope, $timeout, $http, scoreManager) {
-    var currentYear = 2018;
+    var currentYear = 2019;
     $scope.start_svg = start_svg;
     $scope.stop_svg = stop_svg;
     $scope.UI = "graphic";
