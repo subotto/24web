@@ -4,7 +4,7 @@ angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score'
   .config(function($locationProvider, $stateProvider, $urlRouterProvider) {
     $locationProvider.html5Mode(false);
     $urlRouterProvider
-      .when('/stats/', '/stats/all') 
+      .when('/stats/', '/stats/all')
       .otherwise('/overview');
     $stateProvider
       .state('overview', {
@@ -63,14 +63,25 @@ angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score'
     return function(time) {
       if (time == 0) return "0s";
       var time = Math.floor(time);
+      var o_time = time;
+      var days = Math.floor(time / 86400);
+      time -= days*86400;
       var hours = Math.floor(time / 3600);
-      var minutes = Math.floor(time/60 - hours*60);
-      var seconds = Math.floor(time - hours*3600 - minutes*60);
+      time -= hours*3600;
+      var minutes = Math.floor(time/60);
+      time -= minutes*60
+      var seconds = Math.floor(time);
       var l1 = "h";
       var v1 = hours;
       var l2 = "m";
       var v2 = minutes;
-      if (time < 3600) {
+      if (o_time > 2*86400) {
+          l1 = "d";
+          v1 = days;
+          l2 = "h";
+          v2 = hours;
+      }
+      if (o_time < 3600) {
         l1 = "m";
         v1 = minutes;
         l2 = "s";
