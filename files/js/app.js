@@ -71,17 +71,23 @@ angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score'
       var minutes = Math.floor(time/60);
       time -= minutes*60
       var seconds = Math.floor(time);
-      var l1 = "h";
-      var v1 = hours;
-      var l2 = "m";
-      var v2 = minutes;
-      if (o_time > 2*86400) {
+
+      if (o_time > 3*86400) {
           l1 = "d";
           v1 = days;
           l2 = "h";
           v2 = hours;
-      }
-      if (o_time < 3600) {
+      } else if (o_time > 86400) {
+          var l1 = "h";
+          var v1 = hours+24*days;
+          var l2 = "m";
+          var v2 = minutes;
+      } else if (o_time > 3600) {
+          var l1 = "h";
+          var v1 = hours;
+          var l2 = "m";
+          var v2 = minutes;
+      } else {
         l1 = "m";
         v1 = minutes;
         l2 = "s";
