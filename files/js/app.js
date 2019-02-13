@@ -119,3 +119,8 @@ angular.module('24ore', ['ui.router', '24ore.box', '24ore.navbar', '24ore.score'
       return Math.round(f * Math.pow(10, p)) / Math.pow(10, p);
     }
   })
+  .filter('nodate', function() {
+    return function(time) {
+        return time.substring(6);
+    }
+  })

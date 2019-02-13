@@ -139,7 +139,9 @@
   <a ng-click="stype = 'players'" ng-class="{active: stype == 'players'}">Partecipanti</a>
   <a ng-click="stype = 'individual'" ng-class="{active: stype == 'individual'}">Statistiche individuali</a>
   <a ng-click="stype = 'pairs'" ng-class="{active: stype == 'pairs'}">Statistiche per coppie</a>
+  <a ng-click="stype = 'turns'" ng-class="{active: stype == 'turns'}" ng-show="edition">Turni</a>
  </div>
+
  <div ng-show="stype == 'players'">
   <table>
    <colgroup>
@@ -258,4 +260,36 @@
     </tr>
    </tbody>
   </table>
+ </div>
+
+ <div ng-show="stype == 'turns'">
+  <p>Esito dei turni.</p>
+  <table>
+   <colgroup>
+    <col width="100">
+    <col width="500">
+    <col width="50">
+    <col width="50">
+    <col width="500">
+   </colgroup>
+   <thead>
+    <tr>
+     <th><a href="" ng-click="update_predicate('turns', 'begin')">Orario</a></th>
+     <th><a href="" ng-click="update_predicate('turns', 'name01')">Matematici</a></th>
+     <th><a href="" ng-click="update_predicate('turns', '-score_a')">Gol M</a></th>
+     <th><a href="" ng-click="update_predicate('turns', '-score_b')">Gol F</a></th>
+     <th><a href="" ng-click="update_predicate('turns', 'name11')">Fisici</a></th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr ng-repeat="item in turns | orderBy:turns_predicate:turns_reverse">
+     <td>{{item.begin | nodate}}</td>
+     <td><a ui-sref="player({id: item.id01, year: $stateParams.year})">{{item.name01}}</a>, <a ui-sref="player({id: item.id00, year: $stateParams.year})">{{item.name00}}</a></td>
+     <td>{{item.score_a}}</td>
+     <td>{{item.score_b}}</td>
+     <td><a ui-sref="player({id: item.id11, year: $stateParams.year})">{{item.name11}}</a>, <a ui-sref="player({id: item.id10, year: $stateParams.year})">{{item.name10}}</a></td>
+    </tr>
+   </tbody>
+  </table>
+ </div>
 </box>

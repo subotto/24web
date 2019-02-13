@@ -258,7 +258,7 @@ class SubottoWeb(object):
                     GROUP BY matches.year;""", (i, i))
                 for row in cur.fetchall():
                     res["participations"][row[0]]["goals"] = row[1]
-		# Numero di partecipanti per anno
+                # Numero di partecipanti per anno
                 cur.execute("""
                     SELECT year, COUNT(player_id) FROM (
                         SELECT DISTINCT matches.year, player_id
@@ -269,6 +269,7 @@ class SubottoWeb(object):
                     ) AS temp GROUP BY year;""", (i,))
                 for row in cur.fetchall():
                     res["participations"][row[0]]["players"] = row[1]
+
             # Elenco partecipanti
             cur.execute("""
                 SELECT fname, lname, players.id,
@@ -294,6 +295,7 @@ class SubottoWeb(object):
                         p["team"][ret["team%s" % (t-1)]["name"]] = []
                     p["team"][ret["team%s" % (t-1)]["name"]].append(y)
                 ret["players"].append(p)
+
             # Statistiche dettagliate
             ret["play_limit"] = 120 if match_id is None else 20
             cur.execute("""
@@ -325,6 +327,7 @@ class SubottoWeb(object):
                         p["team"][ret["team%s" % (t-1)]["name"]] = []
                     p["team"][ret["team%s" % (t-1)]["name"]].append(y)
                 ret["player_details"].append(p)
+
             # Coppie
             cur.execute("""
                 SELECT p0.id, p0.fname, p0.lname,
@@ -367,6 +370,39 @@ class SubottoWeb(object):
                     "goals_made": row[6],
                     "goals_taken": row[7]
                 })
+
+            if match_id is not None:
+                # Turni
+                cur.execute("""
+                    SELECT p00.id, p00.fname, p00.lname,
+                           p01.id, p01.fname, p01.lname,
+                           p10.id, p10.fname, p10.lname,
+                           p11.id, p11.fname, p11.lname,
+                           score_a, score_b, "begin", "end"
+                    FROM stats_turns
+                    INNER JOIN players as p00 on p00.id = p00_id
+                    INNER JOIN players as p01 on p01.id = p01_id
+                    INNER JOIN players as p10 on p10.id = p10_id
+                    INNER JOIN players as p11 on p11.id = p11_id
+                    WHERE match_id = %s
+                    ORDER BY "begin" ASC;""" % (match_id))
+                ret["turns"] = []
+                for row in cur.fetchall():
+                    ret["turns"].append({
+                        "name00": row[1] + " " + row[2],
+                        "name01": row[4] + " " + row[5],
+                        "name10": row[7] + " " + row[8],
+                        "name11": row[10] + " " + row[11],
+                        "id00": row[0],
+                        "id01": row[3],
+                        "id10": row[6],
+                        "id11": row[9],
+                        "score_a": row[12],
+                        "score_b": row[13],
+                        "begin": row[14].strftime("%m-%d %H:%M:%S"),
+                        "end": row[15].strftime("%m-%d %H:%M:%S")
+                    })
+                print ret["turns"]
             return json.dumps(ret, separators=(',', ':'))
 
     def player_handler(self, data):
