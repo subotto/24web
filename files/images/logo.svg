@@ -11,8 +11,8 @@
    height="59.733334"
    id="svg2"
    version="1.1"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="logo10.svg"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="logo.svg"
    inkscape:export-filename="/home/giovanni/progetti/subotto/website/images/logo.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -39,30 +39,42 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1366"
-     inkscape:window-height="705"
+     inkscape:window-width="1920"
+     inkscape:window-height="1030"
      id="namedview32"
      showgrid="false"
      inkscape:zoom="3.351706"
-     inkscape:cx="73.563008"
+     inkscape:cx="74.159719"
      inkscape:cy="5.406885"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g8" />
-  <text
-     xml:space="preserve"
+     inkscape:current-layer="svg2" />
+  <g
+     aria-label="v10.0"
      style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.70571899px;line-height:125%;letter-spacing:0.27733332px;word-spacing:0px;fill:#3771c8;fill-opacity:1;stroke:none;stroke-width:1.06666672"
-     x="68.261086"
-     y="57.575184"
-     id="text3013-3"><tspan
-       sodipodi:role="line"
-       id="tspan3015-6"
-       x="68.261086"
-       y="57.575184"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Porky\'s';-inkscape-font-specification:'Porky\'s Bold';letter-spacing:0.80000001px;stroke-width:1.06666672">v10.<tspan
-   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Porky\'s';-inkscape-font-specification:'Porky\'s Bold';letter-spacing:2.04799986px;stroke-width:1.06666672"
-   id="tspan4146-5">0</tspan></tspan></text>
+     id="text3013-3">
+    <path
+       d="m 73.574224,51.421934 q 0.544937,-1.566695 1.952692,-4.927141 0.590348,-1.498577 2.111631,-1.362343 0.908229,0.06812 1.498578,0.658466 0.681171,0.681171 0.590349,1.680223 -0.04541,0.544937 -0.340586,1.135286 l -4.018912,8.128647 Q 74.55057,58.39259 72.915758,58.256355 71.303652,58.120121 70.78142,56.326369 l -2.54304,-8.69629 q -0.181646,-0.63576 -0.136235,-1.180697 0.06812,-0.999052 0.840112,-1.543989 0.703877,-0.47682 1.5894,-0.408703 1.498578,0.136234 1.861869,1.725634 z"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Porky\'s';-inkscape-font-specification:'Porky\'s Bold';letter-spacing:0.80000001px;stroke-width:1.06666672"
+       id="path23" />
+    <path
+       d="m 79.19369,56.190135 q 0,-0.227057 0.02271,-0.454114 l 1.702929,-10.694394 -0.749289,-0.136234 q -1.793751,-0.272469 -1.793751,-2.043515 0,-0.908229 0.590348,-1.543989 0.590349,-0.658466 1.498578,-0.658466 0.181645,0 0.363291,0.04541 l 3.178801,0.499525 q 0.840111,0.136235 1.294226,0.726583 0.454114,0.567643 0.454114,1.339638 0,0.204351 -0.02271,0.408703 l -2.020809,12.760614 q -0.15894,0.930934 -0.771994,1.453166 -0.590349,0.544937 -1.43046,0.544937 -0.976346,0 -1.657518,-0.63576 -0.658466,-0.613054 -0.658466,-1.612106 z"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Porky\'s';-inkscape-font-specification:'Porky\'s Bold';letter-spacing:0.80000001px;stroke-width:1.06666672"
+       id="path25" />
+    <path
+       d="m 94.126758,58.301767 q -0.544937,0.09082 -1.067168,0.09082 -2.929038,0 -4.836319,-2.656569 -1.498577,-2.111632 -1.975397,-5.222316 -0.181646,-1.11258 -0.181646,-2.247866 0,-2.860921 1.089875,-4.790907 1.362343,-2.338689 4.200558,-2.792803 0.544937,-0.09082 1.067169,-0.09082 2.929037,0 4.836318,2.656569 1.498577,2.111632 1.975397,5.222316 0.181646,1.11258 0.181646,2.247866 0,2.86092 -1.089875,4.790906 -1.362343,2.338689 -4.200558,2.792804 z M 92.015127,44.859981 q -1.430461,0.204352 -1.430461,2.429512 0,0.771995 0.272469,2.497629 0.31788,1.975398 0.63576,2.815509 0.703877,1.725635 1.975398,1.521284 1.43046,-0.204352 1.43046,-2.452218 0,-0.7947 -0.272469,-2.474923 -0.31788,-2.020809 -0.658466,-2.860921 -0.681171,-1.680223 -1.952691,-1.475872 z"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Porky\'s';-inkscape-font-specification:'Porky\'s Bold';letter-spacing:0.80000001px;stroke-width:1.06666672"
+       id="path27" />
+    <path
+       d="m 99.325814,56.076606 q 0,-0.95364 0.681176,-1.634811 0.68117,-0.703878 1.65751,-0.703878 0.95364,0 1.63481,0.681172 0.70388,0.681171 0.70388,1.657517 0,0.953641 -0.68117,1.634812 -0.68117,0.703877 -1.65752,0.703877 -0.95364,0 -1.65751,-0.681171 -0.681176,-0.681172 -0.681176,-1.657518 z"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Porky\'s';-inkscape-font-specification:'Porky\'s Bold';letter-spacing:0.80000001px;stroke-width:1.06666672"
+       id="path29" />
+    <path
+       d="m 111.13738,58.301767 q -0.54494,0.09082 -1.06717,0.09082 -2.92904,0 -4.83632,-2.656569 -1.49858,-2.111632 -1.9754,-5.222316 -0.18164,-1.11258 -0.18164,-2.247866 0,-2.860921 1.08987,-4.790907 1.36234,-2.338689 4.20056,-2.792803 0.54494,-0.09082 1.06717,-0.09082 2.92904,0 4.83632,2.656569 1.49857,2.111632 1.97539,5.222316 0.18165,1.11258 0.18165,2.247866 0,2.86092 -1.08988,4.790906 -1.36234,2.338689 -4.20055,2.792804 z m -2.11164,-13.441786 q -1.43046,0.204352 -1.43046,2.429512 0,0.771995 0.27247,2.497629 0.31788,1.975398 0.63576,2.815509 0.70388,1.725635 1.9754,1.521284 1.43046,-0.204352 1.43046,-2.452218 0,-0.7947 -0.27247,-2.474923 -0.31788,-2.020809 -0.65846,-2.860921 -0.68117,-1.680223 -1.9527,-1.475872 z"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Porky\'s';-inkscape-font-specification:'Porky\'s Bold';letter-spacing:0.80000001px;stroke-width:1.06666672"
+       id="path31" />
+  </g>
   <g
      style="fill:#3771c8"
      transform="matrix(1.0449831,0,0,1.0449831,-255.17074,-39.723531)"
