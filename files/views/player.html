@@ -47,6 +47,9 @@
          <tr ng-if="player.goals_taken">
           <td>Differenza reti:</td><td>{{player.goals_made - player.goals_taken}} ({{(player.goals_made - player.goals_taken) * 60/player.play_time | round:2}} / min)</td>
          </tr>
+         <tr>
+           <td>Decina media:</td><td>{{10 * player.goals_made / (player.goals_made + player.goals_taken) | round:2}}</td>
+       </tr>
 <!--
          <tr ng-if="player.coleader">
           <td>Note:</td><td>titolare insieme a <a ui-sref="player({id: player.coleader.id, year: $stateParams.year})">{{player.coleader.name}}</a></td>

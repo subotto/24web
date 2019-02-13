@@ -51,7 +51,7 @@
  <div class="graph_score">
   <linechart data="goal_data" options="bar_options" mode="" width="400" height="300" style="display: inline;"></linechart>
   <linechart data="player_data" options="bar_options" mode="" width="400" height="300" style="display: inline;"></linechart>
- </div>	
+ </div>
 </box>
 
 <box color="blue" title="Statistiche 24 ore: {{$stateParams.year}}" ng-if="$stateParams.year != 'all'">
@@ -130,7 +130,7 @@
  </table>
  <div class="graph_score">
   <linechart data="score_data" options="score_options" mode="" width="800" height="600" style="display: inline;"></linechart>
- </div>	
+ </div>
 </box>
 
 
@@ -181,6 +181,7 @@
     <col width="100">
     <col width="100">
     <col width="100">
+    <col width="100">
     <col width="300">
    </colgroup>
    <thead>
@@ -193,6 +194,7 @@
      <th><a href="" ng-click="update_predicate('details', '-goals_made/play_time')">GF/minuto</a></th>
      <th><a href="" ng-click="update_predicate('details', 'goals_taken/play_time')">GS/minuto</a></th>
      <th><a href="" ng-click="update_predicate('details', '-(goals_made - goals_taken)/play_time')">Diff/minuto</a></th>
+     <th><a href="" ng-click="update_predicate('details', '-(goals_made/(goals_made + goals_taken))')">Decina media</a></th>
      <th><a href="" ng-click="update_predicate('details', '-npart')">Squadra e partecipazioni</a></th>
     </tr>
    </thead>
@@ -206,6 +208,7 @@
      <td>{{player.goals_made * 60 / player.play_time | round:2}}</td>
      <td>{{player.goals_taken * 60 / player.play_time | round:2}}</td>
      <td>{{(player.goals_made - player.goals_taken) * 60 / player.play_time | round:2}}</td>
+     <td>{{10 * player.goals_made / (player.goals_made + player.goals_taken) | round:2}}</td>
      <td>
       <div ng-repeat="(t, years) in player.team">{{t}} (<span ng-repeat="y in years | orderBy"><a ui-sref="player({id: player.id, year: y})" >{{y}}</a><span ng-if="!$last">,&nbsp;</span></span>)</div>
      </td>
@@ -226,6 +229,7 @@
     <col width="100">
     <col width="100">
     <col width="100">
+    <col width="100">
    </colgroup>
    <thead>
     <tr>
@@ -237,6 +241,7 @@
      <th><a href="" ng-click="update_predicate('pairs', '-goals_made/play_time')">GF/minuto</a></th>
      <th><a href="" ng-click="update_predicate('pairs', 'goals_taken/play_time')">GS/minuto</a></th>
      <th><a href="" ng-click="update_predicate('pairs', '-(goals_made - goals_taken)/play_time')">Diff/minuto</a></th>
+     <th><a href="" ng-click="update_predicate('pairs', '-(goals_made/(goals_made + goals_taken))')">Decina media</a></th>
     </tr>
    </thead>
    <tbody>
@@ -249,6 +254,7 @@
      <td>{{player.goals_made * 60 / player.play_time | round:2}}</td>
      <td>{{player.goals_taken * 60 / player.play_time | round:2}}</td>
      <td>{{(player.goals_made - player.goals_taken) * 60 / player.play_time | round:2}}</td>
+     <td>{{10 * player.goals_made / (player.goals_made + player.goals_taken) | round:2}}</td>
     </tr>
    </tbody>
   </table>
